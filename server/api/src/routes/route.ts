@@ -7,7 +7,7 @@ const route = Router();
 
 route.get("/consultar", (req: Request, res: Response) => {
   const user = new User();
-  res.send(user.Create);
+  res.send(user.Create());
 });
 
 export default route;
