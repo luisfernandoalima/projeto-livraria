@@ -18,4 +18,8 @@ export default class Produto {
   private _estoque: String;
   private _status: String;
   private _imgCapa: String;
+
+  Consultar = (): Produto => {
+    return this;
+  };
 }

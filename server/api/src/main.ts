@@ -9,6 +9,6 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/", route);
+app.use("/api", route);
 
 export default app;

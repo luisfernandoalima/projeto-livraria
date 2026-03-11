@@ -30,24 +30,4 @@ export default class Usuario {
   };
 
   getCargo = (): String => this._cargo;
-
-  Create = (): boolean => {
-    return false;
-  };
-
-  Read = (): boolean => {
-    return true;
-  };
-
-  Update = (): boolean => {
-    return true;
-  };
-
-  Delete = (): boolean => {
-    return false;
-  };
-
-  Login = (): boolean => {
-    return false;
-  };
 }
