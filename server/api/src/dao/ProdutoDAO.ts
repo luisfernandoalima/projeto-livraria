@@ -5,16 +5,16 @@ export class ProdutoDAO {
     return true;
   };
 
-  Alterar = (): boolean => {
+  Alterar = (id: number): boolean => {
     return true;
   };
 
-  Consultar = (): Produto => {
+  Consultar = (id: number): Produto => {
     let produto = new Produto();
     return produto;
   };
 
-  Excluir = (): boolean => {
+  Excluir = (id: number): boolean => {
     return true;
   };
 
@@ -36,7 +36,7 @@ export class ProdutoDAO {
     return produtos;
   };
 
-  salvarEstoque = (): boolean => {
+  salvarEstoque = (id: number): boolean => {
     return true;
   };
 }
