@@ -5,6 +5,7 @@ import UserDAO from "../dao/UserDAO.js";
 export default class UserController {
   Create = (req: Request, res: Response) => {};
   Read = (req: Request, res: Response) => {
+    const { id } = req.params;
     return true;
   };
   Update = (req: Request, res: Response) => {};
