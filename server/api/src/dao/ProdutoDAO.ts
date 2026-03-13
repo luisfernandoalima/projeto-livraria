@@ -5,7 +5,7 @@ export class ProdutoDAO {
     return true;
   };
 
-  Alterar = (id: number): boolean => {
+  Alterar = (produto: Produto): boolean => {
     return true;
   };
 

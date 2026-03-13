@@ -1,16 +1,75 @@
 import type { Request, Response } from "express";
 import Usuario from "../class/Usuario.js";
-import UserDAO from "../dao/UserDAO.js";
-
+import UsuarioDAO from "../dao/UsuarioDAO.js";
 export default class UserController {
-  Create = (req: Request, res: Response) => {};
-  Read = (req: Request, res: Response) => {
-    const { id } = req.params;
-    return true;
+  Create = (req: Request, res: Response) => {
+    const dao = new UsuarioDAO();
+
+    const newUser = req.body;
+
+    if (!dao.Create(newUser)) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao cadastrar usuário", type: "error" });
+    }
+
+    return res
+      .status(201)
+      .json({ message: "Usuário cadastrado!", type: "success" });
   };
-  Update = (req: Request, res: Response) => {};
-  Delete = (req: Request, res: Response) => {};
+
+  Read = (req: Request, res: Response) => {
+    const id = Number(req.params);
+
+    const dao = new UsuarioDAO();
+
+    const user = dao.Read(id);
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao cadastrar usuário", type: "error" });
+    }
+
+    return res
+      .status(201)
+      .json({ message: "Usuário cadastrado!", type: "success" });
+  };
+
+  Update = (req: Request, res: Response) => {
+    const id = Number(req.params);
+
+    const dao = new UsuarioDAO();
+
+    if (!dao.Update(id)) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao cadastrar usuário", type: "error" });
+    }
+
+    return res
+      .status(201)
+      .json({ message: "Usuário cadastrado!", type: "success" });
+  };
+
+  Delete = (req: Request, res: Response) => {
+    const id = Number(req.params);
+
+    const dao = new UsuarioDAO();
+
+    if (!dao.Delete(id)) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao excluir usuário", type: "error" });
+    }
+
+    return res
+      .status(201)
+      .json({ message: "Usuário excluído!", type: "success" });
+  };
+
   Login = (req: Request, res: Response) => {};
+
   listUsers = (req: Request, res: Response): Usuario[] => {
     const users: Usuario[] = [];
 
