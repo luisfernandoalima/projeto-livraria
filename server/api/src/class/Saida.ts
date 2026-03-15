@@ -1,9 +1,113 @@
+import ProdutoSaida from "./ProdutoSaida.js";
+import Usuario from "./Usuario.js";
+
 export default class Saida {
   private _id: number;
   private _precoTotal: number;
-  private cliente: String;
+  private _cliente: String;
   private _data: Date;
-  private _status: String;
   private _cpfCliente: String;
   private _tipoPagamento: String;
+  private _produtos: ProdutoSaida[];
+  private _colaborador: Usuario;
+
+  constructor(
+    id: number,
+    precoTotal: number,
+    cliente: String,
+    data: Date,
+    cpfCliente: String,
+    tipoPagamento: String,
+    produtos: ProdutoSaida[] = [],
+    colaborador: Usuario,
+  ) {
+    this._id = id;
+    this._precoTotal = precoTotal;
+    this._cliente = cliente;
+    this._data = data;
+    this._cpfCliente = cpfCliente;
+    this._tipoPagamento = tipoPagamento;
+    this._produtos = produtos;
+    this._colaborador = colaborador;
+  }
+
+  getId = (): number => this._id;
+
+  setId = (id: number): boolean => {
+    if (!id || id <= 0) {
+      return false;
+    }
+    this._id = id;
+    return true;
+  };
+
+  getPrecoTotal = (): number => this._precoTotal;
+
+  setPrecoTotal = (precoTotal: number): boolean => {
+    if (precoTotal == null || precoTotal < 0) {
+      return false;
+    }
+    this._precoTotal = precoTotal;
+    return true;
+  };
+
+  getCliente = (): String => this._cliente;
+
+  setCliente = (cliente: String): boolean => {
+    if (!cliente || cliente == "") {
+      return false;
+    }
+    this._cliente = cliente;
+    return true;
+  };
+
+  getData = (): Date => this._data;
+
+  setData = (data: Date): boolean => {
+    if (!data) {
+      return false;
+    }
+    this._data = data;
+    return true;
+  };
+
+  getCpfCliente = (): String => this._cpfCliente;
+
+  setCpfCliente = (cpfCliente: String): boolean => {
+    if (!cpfCliente || cpfCliente == "") {
+      return false;
+    }
+    this._cpfCliente = cpfCliente;
+    return true;
+  };
+
+  getTipoPagamento = (): String => this._tipoPagamento;
+
+  setTipoPagamento = (tipoPagamento: String): boolean => {
+    if (!tipoPagamento || tipoPagamento == "") {
+      return false;
+    }
+    this._tipoPagamento = tipoPagamento;
+    return true;
+  };
+
+  getProdutos = (): ProdutoSaida[] => this._produtos;
+
+  setProdutos = (produtos: ProdutoSaida[]): boolean => {
+    if (!produtos) {
+      return false;
+    }
+    this._produtos = produtos;
+    return true;
+  };
+
+  getColaborador = (): Usuario => this._colaborador;
+
+  setColaborador = (colaborador: Usuario): boolean => {
+    if (!colaborador) {
+      return false;
+    }
+    this._colaborador = colaborador;
+    return true;
+  };
 }

@@ -1,22 +1,22 @@
-import Entrada from "./Entrada.js";
 import Produto from "./Produto.js";
+import Saida from "./Saida.js";
 
-export default class ProdutoEntrada {
+export default class ProdutoSaida {
   private _produto: Produto;
-  private _entrada: Entrada;
+  private _saida: Saida;
   private _quantidade: number;
-  private _preco: number;
+  private _precoItens: number;
 
   constructor(
     produto: Produto,
-    entrada: Entrada,
+    saida: Saida,
     quantidade: number,
-    preco: number,
+    precoItens: number,
   ) {
     this._produto = produto;
-    this._entrada = entrada;
+    this._saida = saida;
     this._quantidade = quantidade;
-    this._preco = preco;
+    this._precoItens = precoItens;
   }
 
   getProduto = (): Produto => this._produto;
@@ -29,13 +29,13 @@ export default class ProdutoEntrada {
     return true;
   };
 
-  getEntrada = (): Entrada => this._entrada;
+  getSaida = (): Saida => this._saida;
 
-  setEntrada = (entrada: Entrada): boolean => {
-    if (!entrada) {
+  setSaida = (saida: Saida): boolean => {
+    if (!saida) {
       return false;
     }
-    this._entrada = entrada;
+    this._saida = saida;
     return true;
   };
 
@@ -49,13 +49,13 @@ export default class ProdutoEntrada {
     return true;
   };
 
-  getPreco = (): number => this._preco;
+  getPrecoItens = (): number => this._precoItens;
 
-  setPreco = (preco: number): boolean => {
-    if (preco == null || preco < 0) {
+  setPrecoItens = (precoItens: number): boolean => {
+    if (precoItens == null || precoItens < 0) {
       return false;
     }
-    this._preco = preco;
+    this._precoItens = precoItens;
     return true;
   };
 }
