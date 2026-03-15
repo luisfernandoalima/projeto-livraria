@@ -1,45 +1,88 @@
-import { ItemEntrada } from "./ProdutoEntrada.js";
+import ProdutoEntrada from "./ProdutoEntrada.js";
+import type Usuario from "./Usuario.js";
 
 export default class Entrada {
-  constructor() {}
-
   private _id: number;
   private _data: Date;
-  private _cliente: String;
-  private _produtos: ItemEntrada[];
-  private _tipoPagamento: String;
+  private _nomeFornecedor: String;
+  private _cnpjFornecedor: String;
+  private _produtos: ProdutoEntrada[];
+  private _colaborador: Usuario;
+
+  constructor(
+    id: number,
+    data: Date,
+    nomeFornecedor: String,
+    cnpjFornecedor: String,
+    produtos: ProdutoEntrada[] = [],
+    colaborador: Usuario,
+  ) {
+    this._id = id;
+    this._produtos = produtos;
+
+    this._data = data;
+    this._nomeFornecedor = nomeFornecedor;
+    this._cnpjFornecedor = cnpjFornecedor;
+    this._colaborador = colaborador;
+  }
 
   getId = (): number => this._id;
 
+  setId = (id: number): boolean => {
+    if (!id || id <= 0) {
+      return false;
+    }
+    this._id = id;
+    return true;
+  };
+
   getData = (): Date => this._data;
+
   setData = (data: Date): boolean => {
-    if (!data || data == null) {
+    if (!data) {
       return false;
     }
     this._data = data;
     return true;
   };
 
-  getCliente = (): String => this._cliente;
-  setCliente = (cliente: String): boolean => {
-    if (!cliente || cliente == null || cliente == "") {
+  getNomeFornecedor = (): String => this._nomeFornecedor;
+
+  setNomeFornecedor = (nomeFornecedor: String): boolean => {
+    if (!nomeFornecedor || nomeFornecedor == "") {
       return false;
     }
-
-    this._cliente = cliente;
+    this._nomeFornecedor = nomeFornecedor;
     return true;
   };
 
-  getProdutos = (): ItemEntrada[] => this._produtos;
+  getCnpjFornecedor = (): String => this._cnpjFornecedor;
 
-  getTipoPagamento = (): String => this._tipoPagamento;
-
-  setTipoPagamento = (tipoPagamento: String): boolean => {
-    if (!tipoPagamento || tipoPagamento == null || tipoPagamento == "") {
+  setCnpjFornecedor = (cnpjFornecedor: String): boolean => {
+    if (!cnpjFornecedor || cnpjFornecedor == "") {
       return false;
     }
+    this._cnpjFornecedor = cnpjFornecedor;
+    return true;
+  };
 
-    this._tipoPagamento = tipoPagamento;
+  getProdutos = (): ProdutoEntrada[] => this._produtos;
+
+  setProdutos = (produtos: ProdutoEntrada[]): boolean => {
+    if (!produtos) {
+      return false;
+    }
+    this._produtos = produtos;
+    return true;
+  };
+
+  getColaborador = (): Usuario => this._colaborador;
+
+  setColaborador = (colaborador: Usuario): boolean => {
+    if (!colaborador) {
+      return false;
+    }
+    this._colaborador = colaborador;
     return true;
   };
 }

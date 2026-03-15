@@ -28,12 +28,10 @@ export default class UserController {
     if (!user) {
       return res
         .status(400)
-        .json({ message: "Erro ao cadastrar usuário", type: "error" });
+        .json({ message: "Erro ao buscar usuário", type: "error" });
     }
 
-    return res
-      .status(201)
-      .json({ message: "Usuário cadastrado!", type: "success" });
+    return res.status(201).json(user);
   };
 
   Update = (req: Request, res: Response) => {

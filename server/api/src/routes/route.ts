@@ -1,10 +1,12 @@
 import { Router } from "express";
 import UserController from "../controller/UserController.js";
 import ProdutoController from "../controller/ProductController.js";
+import EntradaController from "../controller/EntradaController.js";
 
 const route = Router();
 const userController = new UserController();
 const produtoController = new ProdutoController();
+const entradaController = new EntradaController();
 
 route.post("/user/sign-up", userController.Create);
 route.get("/user/find-user/:id", userController.Read);
@@ -19,5 +21,9 @@ route.patch("/product/update/:id", produtoController.Update);
 route.delete("/product/delete/:id", produtoController.Delete);
 route.get("/product/list-products", produtoController.listProducts);
 route.put("/product/save/:id", produtoController.salvarEstoque);
+
+route.post("/entry/register", entradaController.Registrar);
+route.get("/entry/find-registration/:id", entradaController.Consultar);
+route.get("/entry/list-registration", entradaController.Listar);
 
 export default route;

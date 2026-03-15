@@ -1,8 +1,20 @@
 import Entrada from "../class/Entrada.js";
 
-export class EntradaDAO {
-  Consultar = (): Entrada => {
+export default class EntradaDAO {
+  Consultar = async (): Promise<Entrada> => {
     let entrada = new Entrada();
+
+    return entrada;
+  };
+
+  Registrar = async () => {
+    let entrada = new Entrada();
+
+    return entrada;
+  };
+
+  Listar = async () => {
+    const entrada = new Entrada();
 
     return entrada;
   };
