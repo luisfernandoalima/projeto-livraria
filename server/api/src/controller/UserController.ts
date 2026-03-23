@@ -1,7 +1,9 @@
+import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
 import Usuario from "../class/Usuario.js";
 import UsuarioDAO from "../dao/UsuarioDAO.js";
 export default class UserController {
+  private ACCESS_TOKEN = process.env.ACCESS_TOKEN_KEY;
   Create = (req: Request, res: Response) => {
     const dao = new UsuarioDAO();
 
@@ -66,7 +68,42 @@ export default class UserController {
       .json({ message: "Usuário excluído!", type: "success" });
   };
 
-  Login = (req: Request, res: Response) => {};
+  Login = (req: Request, res: Response) => {
+    const { email, password } = req.body;
+
+    const dao = new UsuarioDAO();
+
+    if (!dao.Login(email, password)) {
+      return res
+        .status(403)
+        .json({ message: "Erro ao executar login", type: "error" });
+    }
+
+    const token = jwt.sign({ email }, this.ACCESS_TOKEN!, {
+      expiresIn: "1h",
+    });
+
+    res.json({ token });
+  };
+
+  Validate = (req: Request, res: Response) => {
+    const authHeader = req.headers["authorization"];
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token)
+      return res
+        .status(403)
+        .json({ message: "Erro ao executar login", type: "error" });
+
+    jwt.verify(token, this.ACCESS_TOKEN!, (err, email) => {
+      if (err)
+        return res
+          .status(403)
+          .json({ message: "Não autorizado", type: "error" });
+
+      res.json({ message: "Acesso autorizado", type: "success" });
+    });
+  };
 
   listUsers = (req: Request, res: Response): Usuario[] => {
     const users: Usuario[] = [];

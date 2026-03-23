@@ -16,6 +16,7 @@ route.patch("/user/update/:id", userController.Update);
 route.delete("/user/delete/:id", userController.Delete);
 route.get("/user/list-users", userController.listUsers);
 route.post("/user/login", userController.Login);
+route.get("/user/validate", userController.Validate);
 
 route.post("/product/create", produtoController.Create);
 route.get("/product/find-product/:id", produtoController.Read);

@@ -16,4 +16,8 @@ export default class UsuarioDAO {
   Delete = async (id: number) => {
     return true;
   };
+
+  Login = async (email: string, password: string) => {
+    return true;
+  };
 }
