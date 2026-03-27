@@ -13,12 +13,12 @@ const produtoController = new ProdutoController();
 const entradaController = new EntradaController();
 const saidaController = new SaidaController();
 
-route.post("/user/sign-up", authValidate, userController.Create);
+route.post("/user/sign-up", userController.Create);
+route.post("/user/login", userController.Login);
 route.get("/user/find-user/:id", authValidate, userController.Read);
 route.patch("/user/update/:id", authValidate, userController.Update);
 route.delete("/user/delete/:id", authValidate, userController.Delete);
 route.get("/user/list-users", authValidate, userController.listUsers);
-route.post("/user/login", authValidate, userController.Login);
 
 route.post("/product/create", authValidate, produtoController.Create);
 route.get("/product/find-product/:id", authValidate, produtoController.Read);
