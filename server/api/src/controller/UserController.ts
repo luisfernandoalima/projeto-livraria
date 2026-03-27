@@ -86,25 +86,6 @@ export default class UserController {
     res.json({ token });
   };
 
-  Validate = (req: Request, res: Response) => {
-    const authHeader = req.headers["authorization"];
-    const token = authHeader && authHeader.split(" ")[1];
-
-    if (!token)
-      return res
-        .status(403)
-        .json({ message: "Erro ao executar login", type: "error" });
-
-    jwt.verify(token, this.ACCESS_TOKEN!, (err, email) => {
-      if (err)
-        return res
-          .status(403)
-          .json({ message: "Não autorizado", type: "error" });
-
-      res.json({ message: "Acesso autorizado", type: "success" });
-    });
-  };
-
   listUsers = (req: Request, res: Response): Usuario[] => {
     const users: Usuario[] = [];
 
