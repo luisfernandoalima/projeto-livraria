@@ -58,10 +58,10 @@ export default class UserController {
       .json({ message: "Usuário cadastrado!", type: "success" });
   };
 
-  Delete = (req: Request, res: Response) => {
-    const id = Number(req.params);
+  Delete = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-    if (!this.dao.Delete(id)) {
+    if (!(await this.dao.Delete(Number(id)))) {
       return res
         .status(400)
         .json({ message: "Erro ao excluir usuário", type: "error" });
@@ -73,9 +73,9 @@ export default class UserController {
   };
 
   Login = (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { email, senha } = req.body;
 
-    if (!this.dao.Login(email, password)) {
+    if (!this.dao.Login(email, senha)) {
       return res
         .status(403)
         .json({ message: "Erro ao executar login", type: "error" });
