@@ -33,9 +33,26 @@ export default class UsuarioDAO {
     }
   };
 
-  Update = async (id: number) => {
+  Update = async (updatedUser: Usuario) => {
     try {
-    } catch (err) {}
+      await pool.query(
+        "UPDATE usuario SET nome = $1, email = $2, senha = $3, telefone = $4, cpf = $5, funcao = $6 WHERE id = $7",
+        [
+          updatedUser.getNome(),
+          updatedUser.getEmail(),
+          updatedUser.getSenha(),
+          updatedUser.getTelefone(),
+          updatedUser.getCPF(),
+          updatedUser.getCargo(),
+          updatedUser.getId(),
+        ],
+      );
+      return true;
+      console.log("Ok");
+    } catch (err) {
+      console.error(`Erro ao atualizar usuário: ${err}`);
+      return false;
+    }
   };
 
   Delete = async (id: number) => {

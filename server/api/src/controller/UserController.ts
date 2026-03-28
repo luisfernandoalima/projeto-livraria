@@ -44,10 +44,19 @@ export default class UserController {
     return res.status(200).json(user);
   };
 
-  Update = (req: Request, res: Response) => {
-    const id = Number(req.params);
+  Update = async (req: Request, res: Response) => {
+    const { id, nome, email, senha, telefone, cpf, cargo } = req.body;
+    const updatedUser: Usuario = new Usuario(
+      id,
+      nome,
+      email,
+      senha,
+      telefone,
+      cpf,
+      cargo,
+    );
 
-    if (!this.dao.Update(id)) {
+    if (!(await this.dao.Update(updatedUser))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -72,10 +81,10 @@ export default class UserController {
       .json({ message: "Usuário excluído!", type: "success" });
   };
 
-  Login = (req: Request, res: Response) => {
+  Login = async (req: Request, res: Response) => {
     const { email, senha } = req.body;
 
-    if (!this.dao.Login(email, senha)) {
+    if (!(await this.dao.Login(email, senha))) {
       return res
         .status(403)
         .json({ message: "Erro ao executar login", type: "error" });
