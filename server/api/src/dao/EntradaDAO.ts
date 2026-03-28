@@ -1,3 +1,4 @@
+import { pool } from "../database/connection.js";
 import Entrada from "../class/Entrada.js";
 
 export default class EntradaDAO {

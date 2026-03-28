@@ -4,12 +4,13 @@ import Usuario from "../class/Usuario.js";
 import UsuarioDAO from "../dao/UsuarioDAO.js";
 export default class UserController {
   private ACCESS_TOKEN = process.env.ACCESS_TOKEN_KEY;
-  Create = (req: Request, res: Response) => {
-    const dao = new UsuarioDAO();
 
+  private dao = new UsuarioDAO();
+
+  Create = (req: Request, res: Response) => {
     const newUser = req.body;
 
-    if (!dao.Create(newUser)) {
+    if (!this.dao.Create(newUser)) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -23,9 +24,7 @@ export default class UserController {
   Read = (req: Request, res: Response) => {
     const id = Number(req.params);
 
-    const dao = new UsuarioDAO();
-
-    const user = dao.Read(id);
+    const user = this.dao.Read(id);
 
     if (!user) {
       return res
@@ -39,9 +38,7 @@ export default class UserController {
   Update = (req: Request, res: Response) => {
     const id = Number(req.params);
 
-    const dao = new UsuarioDAO();
-
-    if (!dao.Update(id)) {
+    if (!this.dao.Update(id)) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -55,9 +52,7 @@ export default class UserController {
   Delete = (req: Request, res: Response) => {
     const id = Number(req.params);
 
-    const dao = new UsuarioDAO();
-
-    if (!dao.Delete(id)) {
+    if (!this.dao.Delete(id)) {
       return res
         .status(400)
         .json({ message: "Erro ao excluir usuário", type: "error" });
@@ -71,9 +66,7 @@ export default class UserController {
   Login = (req: Request, res: Response) => {
     const { email, password } = req.body;
 
-    const dao = new UsuarioDAO();
-
-    if (!dao.Login(email, password)) {
+    if (!this.dao.Login(email, password)) {
       return res
         .status(403)
         .json({ message: "Erro ao executar login", type: "error" });
@@ -86,9 +79,15 @@ export default class UserController {
     res.json({ token });
   };
 
-  listUsers = (req: Request, res: Response): Usuario[] => {
-    const users: Usuario[] = [];
+  listUsers = (req: Request, res: Response): Response<Usuario[]> => {
+    const user = this.dao.listUsers();
 
-    return users;
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao buscar usuário", type: "error" });
+    }
+
+    return res.status(201).json(user);
   };
 }
