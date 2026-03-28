@@ -7,10 +7,19 @@ export default class UserController {
 
   private dao = new UsuarioDAO();
 
-  Create = (req: Request, res: Response) => {
-    const newUser = req.body;
+  Create = async (req: Request, res: Response) => {
+    const { nome, email, senha, telefone, cpf, cargo } = req.body;
+    const newUser: Usuario = new Usuario(
+      null,
+      nome,
+      email,
+      senha,
+      telefone,
+      cpf,
+      cargo,
+    );
 
-    if (!this.dao.Create(newUser)) {
+    if (!(await this.dao.Create(newUser))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -21,10 +30,10 @@ export default class UserController {
       .json({ message: "Usuário cadastrado!", type: "success" });
   };
 
-  Read = (req: Request, res: Response) => {
-    const id = Number(req.params);
+  Read = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
 
-    const user = this.dao.Read(id);
+    const user = await this.dao.Read(id);
 
     if (!user) {
       return res
@@ -32,7 +41,7 @@ export default class UserController {
         .json({ message: "Erro ao buscar usuário", type: "error" });
     }
 
-    return res.status(201).json(user);
+    return res.status(200).json(user);
   };
 
   Update = (req: Request, res: Response) => {
@@ -79,8 +88,8 @@ export default class UserController {
     res.json({ token });
   };
 
-  listUsers = (req: Request, res: Response): Response<Usuario[]> => {
-    const user = this.dao.listUsers();
+  listUsers = async (req: Request, res: Response) => {
+    const user = await this.dao.listUsers();
 
     if (!user) {
       return res
