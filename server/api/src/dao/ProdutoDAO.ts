@@ -1,39 +1,102 @@
+import { pool } from "../database/connection.js";
 import Produto from "../class/Produto.js";
 
 export class ProdutoDAO {
-  Criar = (): boolean => {
-    return true;
+  Criar = async (produto: Produto) => {
+    try {
+      await pool.query(
+        "INSERT INTO produto VALUES (default, $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)",
+        [
+          produto.getTitulo(),
+          produto.getSubtitulo(),
+          produto.getSinopse(),
+          produto.getAutor(),
+          produto.getSerie(),
+          produto.getVolume(),
+          produto.getIsbn13(),
+          produto.getFormato(),
+          produto.getNumPaginas(),
+          produto.getIdioma(),
+          produto.getDataPublicacao(),
+          produto.getGenero(),
+          produto.getClassIndicativa(),
+          produto.getPreco(),
+          produto.getEstoque(),
+          produto.getStatus(),
+          produto.getImgCapa(),
+        ],
+      );
+
+      return true;
+    } catch (err) {
+      console.error(`Erro ao cadastrar produto: ${err}`);
+      return false;
+    }
   };
 
-  Alterar = (produto: Produto): boolean => {
-    return true;
+  Alterar = async (produto: Produto) => {
+    try {
+      await pool.query(
+        `UPDATE produto SET titulo = $1, subtitulo = $2, sinopse = $3, autor = $4, serie = $5, volume = $6, isbn13 = $7, formato = $8, numero_paginas = $9, idioma = $10,
+ data_publicacao = $11, genero = $12, classificacao_indicativa = $13, preco = $14, estoque = $15, status = $16, imagem_capa = $17 WHERE id = $18`,
+        [
+          produto.getTitulo(),
+          produto.getSubtitulo(),
+          produto.getSinopse(),
+          produto.getAutor(),
+          produto.getSerie(),
+          produto.getVolume(),
+          produto.getIsbn13(),
+          produto.getFormato(),
+          produto.getNumPaginas(),
+          produto.getIdioma(),
+          produto.getDataPublicacao(),
+          produto.getGenero(),
+          produto.getClassIndicativa(),
+          produto.getPreco(),
+          produto.getEstoque(),
+          produto.getStatus(),
+          produto.getImgCapa(),
+          produto.getId(),
+        ],
+      );
+      return true;
+    } catch (err) {
+      console.error(`Erro ao atualizar produto: ${err}`);
+      return false;
+    }
   };
 
-  Consultar = (id: number): Produto => {
-    let produto = new Produto();
-    return produto;
+  Consultar = async (id: number) => {
+    try {
+      const result = await pool.query("SELECT * FROM produto WHERE id = $1", [
+        id,
+      ]);
+
+      return result.rows[0];
+    } catch (err) {
+      console.error(`Erro ao consultar produto: ${err}`);
+      return false;
+    }
   };
 
-  Excluir = (id: number): boolean => {
-    return true;
+  Excluir = async (id: number) => {
+    try {
+      await pool.query("DELETE FROM produto WHERE id = $id", [id]);
+      return true;
+    } catch (err) {
+      console.error(`Erro ao excluir produto: ${err}`);
+      return false;
+    }
   };
 
-  Listar = (): Produto[] => {
-    let produto1 = new Produto();
-    let produto2 = new Produto();
-
-    let produtos = [produto1, produto2];
-
-    return produtos;
-  };
-
-  gerarRelatorio = (): Produto[] => {
-    let produto1 = new Produto();
-    let produto2 = new Produto();
-
-    let produtos = [produto1, produto2];
-
-    return produtos;
+  Listar = async () => {
+    try {
+      const produtos = await pool.query("SELECT * FROM produto");
+      return produtos.rows;
+    } catch (err) {
+      console.log(`Erro ao buscar produtos: ${err}`);
+    }
   };
 
   salvarEstoque = (id: number): boolean => {

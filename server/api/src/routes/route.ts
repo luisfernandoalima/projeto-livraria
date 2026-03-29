@@ -1,4 +1,5 @@
 import { Router } from "express";
+import multer from "multer";
 
 import authValidate from "../middlewares/auth.js";
 
@@ -16,19 +17,15 @@ const saidaController = new SaidaController();
 route.post("/user/sign-up", authValidate, userController.Create);
 route.post("/user/login", userController.Login);
 route.get("/user/find-user/:id", authValidate, userController.Read);
-route.patch("/user/update", userController.Update);
+route.patch("/user/update", authValidate, userController.Update);
 route.delete("/user/delete/:id", authValidate, userController.Delete);
 route.get("/user/list-users", authValidate, userController.listUsers);
 
 route.post("/product/create", authValidate, produtoController.Create);
-route.get("/product/find-product/:id", authValidate, produtoController.Read);
+route.get("/product/find-product/:id", produtoController.Read);
 route.patch("/product/update/:id", authValidate, produtoController.Update);
 route.delete("/product/delete/:id", authValidate, produtoController.Delete);
-route.get(
-  "/product/list-products",
-  authValidate,
-  produtoController.listProducts,
-);
+route.get("/product/list-products", produtoController.listProducts);
 route.put("/product/save/:id", authValidate, produtoController.salvarEstoque);
 
 route.post("/entry/register", authValidate, entradaController.Registrar);

@@ -48,7 +48,6 @@ export default class UsuarioDAO {
         ],
       );
       return true;
-      console.log("Ok");
     } catch (err) {
       console.error(`Erro ao atualizar usuário: ${err}`);
       return false;
