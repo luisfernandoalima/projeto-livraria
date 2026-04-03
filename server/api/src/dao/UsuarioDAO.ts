@@ -71,7 +71,7 @@ export default class UsuarioDAO {
         [email, password],
       );
 
-      if (result.rowCount == 1) return true;
+      if (result.rowCount == 1) return result.rows[0];
     } catch (err) {
       console.error(`Erro ao buscar usuário: ${err}`);
       return false;

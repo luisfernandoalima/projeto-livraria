@@ -84,15 +84,21 @@ export default class UserController {
   Login = async (req: Request, res: Response) => {
     const { email, senha } = req.body;
 
-    if (!(await this.dao.Login(email, senha))) {
+    const user: Usuario = await this.dao.Login(email, senha);
+
+    if (!user) {
       return res
         .status(403)
         .json({ message: "Erro ao executar login", type: "error" });
     }
 
-    const token = jwt.sign({ email }, this.ACCESS_TOKEN!, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign(
+      { id: user.getId(), email: user.getEmail() },
+      this.ACCESS_TOKEN!,
+      {
+        expiresIn: "1h",
+      },
+    );
 
     res.json({ token });
   };
