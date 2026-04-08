@@ -2,21 +2,59 @@ import { pool } from "../database/connection.js";
 import Entrada from "../class/Entrada.js";
 
 export default class EntradaDAO {
-  Registrar = async () => {
-    let entrada = new Entrada();
+  Registrar = async (newEntry: Entrada, userId: number) => {
+    try {
+      await pool.query(
+        "INSERT INTO entrada VALUES (default, $1, $2, $3, $4, $5)",
+        [
+          newEntry.getCupomFiscal(),
+          newEntry.getData(),
+          newEntry.getNomeFornecedor(),
+          newEntry.getCnpjFornecedor(),
+          userId,
+        ],
+      );
+      const entryId = await pool.query(
+        "SELECT id FROM entrada WHERE cupom_fiscal=$1",
+        [newEntry.getCupomFiscal()],
+      );
 
-    return entrada;
+      return entryId.rows[0];
+    } catch (err) {
+      console.error(`Erro ao registrar entrada: ${err}`);
+      return false;
+    }
   };
 
-  Consultar = async (): Promise<Entrada> => {
-    let entrada = new Entrada();
-
-    return entrada;
+  Consultar = async (cupomFiscal: number) => {
+    try {
+      await pool.query("SELECT * FROM entrada WHERE cupom_fiscal=$1", [
+        cupomFiscal,
+      ]);
+    } catch (err) {
+      console.error(`Erro ao buscar entrada: ${err}`);
+      return false;
+    }
   };
 
   Listar = async () => {
-    const entrada = new Entrada();
+    try {
+      const result = await pool.query("SELECT * FROM entrada");
+      return result.rows;
+    } catch (err) {
+      console.log(`Erro ao buscar entradas: ${err}`);
+    }
+  };
 
-    return entrada;
+  consultaCompleta = async (cupomFiscal: number) => {
+    try {
+      await pool.query(
+        "SELECT c.id, c.nome,  c.email, e.id AS entrada_id, e.data, p.id AS produto_id, p.titulo, ep.quantidade FROM entrada e INNER JOIN colaborador c ON e.colaborador_id = c.id INNER JOIN entrada_produto ep ON e.id = ep.entrada_id INNER JOIN produto p ON ep.produto_id = p.id WHERE e.cupom_fiscal = $1;",
+        [cupomFiscal],
+      );
+    } catch (err) {
+      console.error(`Erro ao cadastrar produto: ${err}`);
+      return false;
+    }
   };
 }

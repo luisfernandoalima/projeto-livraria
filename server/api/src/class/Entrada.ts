@@ -1,32 +1,36 @@
 import ProdutoEntrada from "./ProdutoEntrada.js";
 import type Usuario from "./Usuario.js";
 
+import type { TEntradaProduto } from "../@types/models.js";
+
 export default class Entrada {
-  private _id: number;
+  private _id: number | null;
+  private _cupomFiscal: number;
   private _data: Date;
   private _nomeFornecedor: String;
   private _cnpjFornecedor: String;
-  private _produtos: ProdutoEntrada[];
+  private _produtos: TEntradaProduto[];
   private _colaborador: Usuario;
 
   constructor(
-    id: number,
+    id: number | null,
+    cupomFiscal: number,
     data: Date,
     nomeFornecedor: String,
     cnpjFornecedor: String,
-    produtos: ProdutoEntrada[] = [],
+    produtos: TEntradaProduto[],
     colaborador: Usuario,
   ) {
-    this._id = id;
+    this._id = id || null;
+    this._cupomFiscal = cupomFiscal;
     this._produtos = produtos;
-
     this._data = data;
     this._nomeFornecedor = nomeFornecedor;
     this._cnpjFornecedor = cnpjFornecedor;
     this._colaborador = colaborador;
   }
 
-  getId = (): number => this._id;
+  getId = (): number | null => this._id;
 
   setId = (id: number): boolean => {
     if (!id || id <= 0) {
@@ -35,6 +39,8 @@ export default class Entrada {
     this._id = id;
     return true;
   };
+
+  getCupomFiscal = () => this._cupomFiscal;
 
   getData = (): Date => this._data;
 
@@ -66,9 +72,9 @@ export default class Entrada {
     return true;
   };
 
-  getProdutos = (): ProdutoEntrada[] => this._produtos;
+  getProdutos = (): TEntradaProduto[] => this._produtos;
 
-  setProdutos = (produtos: ProdutoEntrada[]): boolean => {
+  setProdutos = (produtos: TEntradaProduto[]): boolean => {
     if (!produtos) {
       return false;
     }
