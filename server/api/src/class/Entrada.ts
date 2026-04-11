@@ -7,6 +7,7 @@ export default class Entrada {
   private _data: Date;
   private _nomeFornecedor: String;
   private _cnpjFornecedor: String;
+
   private _produtos: ProdutoEntrada[];
   private _colaborador: Usuario;
 

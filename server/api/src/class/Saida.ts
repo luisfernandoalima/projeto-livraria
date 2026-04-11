@@ -1,5 +1,6 @@
 import ProdutoSaida from "./ProdutoSaida.js";
 import Usuario from "./Usuario.js";
+import { TipoPagamento } from "../enums/TipoPagamento.js";
 
 export default class Saida {
   private _id: number | null;
@@ -8,7 +9,7 @@ export default class Saida {
   private _cliente: String;
   private _data: Date;
   private _cpfCliente: String;
-  private _tipoPagamento: String;
+  private _tipoPagamento: TipoPagamento;
   private _produtos: ProdutoSaida[];
   private _colaborador: Usuario;
 
@@ -19,7 +20,7 @@ export default class Saida {
     data: Date,
     cliente: String,
     cpfCliente: String,
-    tipoPagamento: String,
+    tipoPagamento: TipoPagamento,
     produtos: ProdutoSaida[] = [],
     colaborador: Usuario,
   ) {
@@ -86,9 +87,9 @@ export default class Saida {
     return true;
   };
 
-  getTipoPagamento = (): String => this._tipoPagamento;
+  getTipoPagamento = () => this._tipoPagamento;
 
-  setTipoPagamento = (tipoPagamento: String): boolean => {
+  setTipoPagamento = (tipoPagamento: any): boolean => {
     if (!tipoPagamento || tipoPagamento == "") {
       return false;
     }
