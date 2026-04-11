@@ -3,6 +3,7 @@ import Usuario from "./Usuario.js";
 
 export default class Saida {
   private _id: number;
+  private _cupomFiscal: number;
   private _precoTotal: number;
   private _cliente: String;
   private _data: Date;
@@ -13,6 +14,7 @@ export default class Saida {
 
   constructor(
     id: number,
+    cupomFiscal: number,
     precoTotal: number,
     cliente: String,
     data: Date,
@@ -22,6 +24,7 @@ export default class Saida {
     colaborador: Usuario,
   ) {
     this._id = id;
+    this._cupomFiscal = cupomFiscal;
     this._precoTotal = precoTotal;
     this._cliente = cliente;
     this._data = data;
@@ -40,6 +43,8 @@ export default class Saida {
     this._id = id;
     return true;
   };
+
+  getCupomFiscal = () => this._cupomFiscal;
 
   getPrecoTotal = (): number => this._precoTotal;
 
