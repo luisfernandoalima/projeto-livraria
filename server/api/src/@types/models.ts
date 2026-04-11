@@ -4,3 +4,5 @@ export type TEntradaProduto = {
   produto: Produto;
   quantidade: number;
 };
+
+export type TSaidaProduto = TEntradaProduto;

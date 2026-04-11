@@ -2,7 +2,7 @@ import ProdutoSaida from "./ProdutoSaida.js";
 import Usuario from "./Usuario.js";
 
 export default class Saida {
-  private _id: number;
+  private _id: number | null;
   private _cupomFiscal: number;
   private _precoTotal: number;
   private _cliente: String;
@@ -13,11 +13,11 @@ export default class Saida {
   private _colaborador: Usuario;
 
   constructor(
-    id: number,
+    id: number | null,
     cupomFiscal: number,
     precoTotal: number,
-    cliente: String,
     data: Date,
+    cliente: String,
     cpfCliente: String,
     tipoPagamento: String,
     produtos: ProdutoSaida[] = [],
@@ -34,7 +34,7 @@ export default class Saida {
     this._colaborador = colaborador;
   }
 
-  getId = (): number => this._id;
+  getId = () => this._id;
 
   setId = (id: number): boolean => {
     if (!id || id <= 0) {
