@@ -1,6 +1,6 @@
 import Produto from "./Produto.js";
 
-export default class ProdutoSaida {
+export default abstract class Registro {
   private _produto: Produto;
   private _quantidade: number;
   private _precoItens: number;
