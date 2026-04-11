@@ -1,15 +1,13 @@
 import ProdutoEntrada from "./ProdutoEntrada.js";
 import type Usuario from "./Usuario.js";
 
-import type { TEntradaProduto } from "../@types/models.js";
-
 export default class Entrada {
   private _id: number | null;
   private _cupomFiscal: number;
   private _data: Date;
   private _nomeFornecedor: String;
   private _cnpjFornecedor: String;
-  private _produtos: TEntradaProduto[];
+  private _produtos: ProdutoEntrada[];
   private _colaborador: Usuario;
 
   constructor(
@@ -18,7 +16,7 @@ export default class Entrada {
     data: Date,
     nomeFornecedor: String,
     cnpjFornecedor: String,
-    produtos: TEntradaProduto[],
+    produtos: ProdutoEntrada[],
     colaborador: Usuario,
   ) {
     this._id = id || null;
@@ -72,9 +70,9 @@ export default class Entrada {
     return true;
   };
 
-  getProdutos = (): TEntradaProduto[] => this._produtos;
+  getProdutos = (): ProdutoEntrada[] => this._produtos;
 
-  setProdutos = (produtos: TEntradaProduto[]): boolean => {
+  setProdutos = (produtos: ProdutoEntrada[]): boolean => {
     if (!produtos) {
       return false;
     }
