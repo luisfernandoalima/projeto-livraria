@@ -1,9 +1,9 @@
 {
   "name": "api",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.1",
+  "description": "API desenvolvida para conectar o banco de dados com a interface do projeto Tsuru",
   "license": "ISC",
-  "author": "",
+  "author": "Luis Fernando Alves de Lima",
   "type": "module",
   "main": "dist/server.js",
   "scripts": {

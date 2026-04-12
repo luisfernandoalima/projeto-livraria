@@ -3,7 +3,7 @@ import type Usuario from "./Usuario.js";
 
 export default class Entrada {
   private _id: number | null;
-  private _cupomFiscal: number;
+  private _cupomFiscal: string;
   private _data: Date;
   private _nomeFornecedor: String;
   private _cnpjFornecedor: String;
@@ -13,7 +13,7 @@ export default class Entrada {
 
   constructor(
     id: number | null,
-    cupomFiscal: number,
+    cupomFiscal: string,
     data: Date,
     nomeFornecedor: String,
     cnpjFornecedor: String,

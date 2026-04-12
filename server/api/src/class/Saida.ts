@@ -4,7 +4,7 @@ import { TipoPagamento } from "../enums/TipoPagamento.js";
 
 export default class Saida {
   private _id: number | null;
-  private _cupomFiscal: number;
+  private _cupomFiscal: string;
   private _precoTotal: number;
   private _cliente: String;
   private _data: Date;
@@ -15,7 +15,7 @@ export default class Saida {
 
   constructor(
     id: number | null,
-    cupomFiscal: number,
+    cupomFiscal: string,
     precoTotal: number,
     data: Date,
     cliente: String,
