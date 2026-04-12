@@ -1,8 +1,9 @@
 import type { Request, Response } from "express";
-import EntradaDAO from "./../dao/EntradaDAO.js";
-import ProdutoEntradaDAO from "../dao/ProdutoEntradaDAO.js";
+import EntradaDAO from "../dal/EntradaDAO.js";
+import ProdutoEntradaDAO from "../dal/ProdutoEntradaDAO.js";
 import Entrada from "../class/Entrada.js";
 
+import calcularPrecoTotal from "../utils/calcularPrecoTotal.js";
 export default class EntradaController {
   private dao = new EntradaDAO();
 
@@ -14,12 +15,15 @@ export default class EntradaController {
     const { cupomFiscal, data, nomeFornecedor, cnpjFornecedor, produtos } =
       req.body;
 
+    const valorTotal = calcularPrecoTotal(produtos);
+
     const newEntry = new Entrada(
       null,
       cupomFiscal,
       new Date(data),
       nomeFornecedor,
       cnpjFornecedor,
+      valorTotal,
       produtos,
       user.id,
     );

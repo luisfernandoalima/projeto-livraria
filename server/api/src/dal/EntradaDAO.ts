@@ -5,12 +5,13 @@ export default class EntradaDAO {
   Registrar = async (newEntry: Entrada, userId: number) => {
     try {
       await pool.query(
-        "INSERT INTO entrada VALUES (default, $1, $2, $3, $4, $5)",
+        "INSERT INTO entrada VALUES (default, $1, $2, $3, $4, $5, $6)",
         [
           newEntry.getCupomFiscal(),
-          newEntry.getData(),
           newEntry.getNomeFornecedor(),
           newEntry.getCnpjFornecedor(),
+          newEntry.getPrecoTotal(),
+          newEntry.getData(),
           userId,
         ],
       );

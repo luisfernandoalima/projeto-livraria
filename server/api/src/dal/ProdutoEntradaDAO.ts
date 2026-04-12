@@ -8,10 +8,12 @@ export default class ProdutoEntradaDAO {
     valor: number,
   ) => {
     try {
-      await pool.query(
-        "INSERT INTO entrada_produto VALUES (default, $1, %2, $3, $4)",
-        [entradaId, produtoId, quantidade, valor],
-      );
+      await pool.query("INSERT INTO entrada_produto VALUES ($1, $2, $3, $4)", [
+        entradaId,
+        produtoId,
+        quantidade,
+        valor,
+      ]);
 
       return true;
     } catch (err) {

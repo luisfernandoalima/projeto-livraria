@@ -7,7 +7,7 @@ export default class Entrada {
   private _data: Date;
   private _nomeFornecedor: String;
   private _cnpjFornecedor: String;
-
+  private _precoTotal: number;
   private _produtos: ProdutoEntrada[];
   private _colaborador: Usuario;
 
@@ -17,6 +17,7 @@ export default class Entrada {
     data: Date,
     nomeFornecedor: String,
     cnpjFornecedor: String,
+    precoTotal: number,
     produtos: ProdutoEntrada[],
     colaborador: Usuario,
   ) {
@@ -26,6 +27,7 @@ export default class Entrada {
     this._data = data;
     this._nomeFornecedor = nomeFornecedor;
     this._cnpjFornecedor = cnpjFornecedor;
+    this._precoTotal = precoTotal;
     this._colaborador = colaborador;
   }
 
@@ -68,6 +70,16 @@ export default class Entrada {
       return false;
     }
     this._cnpjFornecedor = cnpjFornecedor;
+    return true;
+  };
+
+  getPrecoTotal = (): number => this._precoTotal;
+
+  setPrecoTotal = (precoTotal: number): boolean => {
+    if (precoTotal == null || precoTotal < 0) {
+      return false;
+    }
+    this._precoTotal = precoTotal;
     return true;
   };
 

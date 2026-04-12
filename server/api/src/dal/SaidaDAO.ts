@@ -8,11 +8,11 @@ export default class SaidaDAO {
         "INSERT INTO saida VALUES (default, $1, $2, $3, $4, $5, $6, $7)",
         [
           newExit.getCupomFiscal(),
-          newExit.getPrecoTotal(),
-          newExit.getData(),
           newExit.getCliente(),
           newExit.getCpfCliente(),
+          newExit.getPrecoTotal(),
           newExit.getTipoPagamento(),
+          newExit.getData(),
           userId,
         ],
       );

@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import type { Request, Response } from "express";
 import Produto from "../class/Produto.js";
-import { ProdutoDAO } from "../dao/ProdutoDAO.js";
+import { ProdutoDAO } from "../dal/ProdutoDAO.js";
 
 import createUpload from "../middlewares/imageUpload.js";
 export default class ProdutoController {

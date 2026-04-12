@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
 import Usuario from "../class/Usuario.js";
-import UsuarioDAO from "../dao/UsuarioDAO.js";
+import UsuarioDAO from "../dal/UsuarioDAO.js";
 export default class UserController {
   private ACCESS_TOKEN = process.env.ACCESS_TOKEN_KEY;
 

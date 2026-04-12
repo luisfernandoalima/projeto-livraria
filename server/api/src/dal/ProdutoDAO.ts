@@ -82,7 +82,7 @@ export class ProdutoDAO {
 
   Excluir = async (id: number) => {
     try {
-      await pool.query("DELETE FROM produto WHERE id = $id", [id]);
+      await pool.query("DELETE FROM produto WHERE id = $1", [id]);
       return true;
     } catch (err) {
       console.error(`Erro ao excluir produto: ${err}`);

@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import Saida from "../class/Saida.js";
-import SaidaDAO from "../dao/SaidaDAO.js";
-import ProdutoSaidaDAO from "../dao/ProdutoSaidaDAO.js";
+import SaidaDAO from "../dal/SaidaDAO.js";
+import ProdutoSaidaDAO from "../dal/ProdutoSaidaDAO.js";
 
 import validarTipoPagamento from "../utils/validarTipoPagamento.js";
 import calcularPrecoTotal from "../utils/calcularPrecoTotal.js";
@@ -18,12 +18,10 @@ export default class SaidaController {
       req.body;
 
     if (!validarTipoPagamento(tipoPagamento))
-      return res
-        .status(400)
-        .json({
-          message: "Erro ao registrar saída, erro de pagamento",
-          type: "error",
-        });
+      return res.status(400).json({
+        message: "Erro ao registrar saída, erro de pagamento",
+        type: "error",
+      });
 
     const precoTotal = calcularPrecoTotal(produtos);
 
