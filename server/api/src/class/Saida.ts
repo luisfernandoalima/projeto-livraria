@@ -1,27 +1,31 @@
 import ProdutoSaida from "./ProdutoSaida.js";
 import Usuario from "./Usuario.js";
+import { TipoPagamento } from "../enums/TipoPagamento.js";
 
 export default class Saida {
-  private _id: number;
+  private _id: number | null;
+  private _cupomFiscal: string;
   private _precoTotal: number;
   private _cliente: String;
   private _data: Date;
   private _cpfCliente: String;
-  private _tipoPagamento: String;
+  private _tipoPagamento: TipoPagamento;
   private _produtos: ProdutoSaida[];
   private _colaborador: Usuario;
 
   constructor(
-    id: number,
+    id: number | null,
+    cupomFiscal: string,
     precoTotal: number,
-    cliente: String,
     data: Date,
+    cliente: String,
     cpfCliente: String,
-    tipoPagamento: String,
+    tipoPagamento: TipoPagamento,
     produtos: ProdutoSaida[] = [],
     colaborador: Usuario,
   ) {
     this._id = id;
+    this._cupomFiscal = cupomFiscal;
     this._precoTotal = precoTotal;
     this._cliente = cliente;
     this._data = data;
@@ -31,7 +35,7 @@ export default class Saida {
     this._colaborador = colaborador;
   }
 
-  getId = (): number => this._id;
+  getId = () => this._id;
 
   setId = (id: number): boolean => {
     if (!id || id <= 0) {
@@ -40,6 +44,8 @@ export default class Saida {
     this._id = id;
     return true;
   };
+
+  getCupomFiscal = () => this._cupomFiscal;
 
   getPrecoTotal = (): number => this._precoTotal;
 
@@ -81,9 +87,9 @@ export default class Saida {
     return true;
   };
 
-  getTipoPagamento = (): String => this._tipoPagamento;
+  getTipoPagamento = () => this._tipoPagamento;
 
-  setTipoPagamento = (tipoPagamento: String): boolean => {
+  setTipoPagamento = (tipoPagamento: any): boolean => {
     if (!tipoPagamento || tipoPagamento == "") {
       return false;
     }

@@ -2,31 +2,36 @@ import ProdutoEntrada from "./ProdutoEntrada.js";
 import type Usuario from "./Usuario.js";
 
 export default class Entrada {
-  private _id: number;
+  private _id: number | null;
+  private _cupomFiscal: string;
   private _data: Date;
   private _nomeFornecedor: String;
   private _cnpjFornecedor: String;
+  private _precoTotal: number;
   private _produtos: ProdutoEntrada[];
   private _colaborador: Usuario;
 
   constructor(
-    id: number,
+    id: number | null,
+    cupomFiscal: string,
     data: Date,
     nomeFornecedor: String,
     cnpjFornecedor: String,
-    produtos: ProdutoEntrada[] = [],
+    precoTotal: number,
+    produtos: ProdutoEntrada[],
     colaborador: Usuario,
   ) {
-    this._id = id;
+    this._id = id || null;
+    this._cupomFiscal = cupomFiscal;
     this._produtos = produtos;
-
     this._data = data;
     this._nomeFornecedor = nomeFornecedor;
     this._cnpjFornecedor = cnpjFornecedor;
+    this._precoTotal = precoTotal;
     this._colaborador = colaborador;
   }
 
-  getId = (): number => this._id;
+  getId = (): number | null => this._id;
 
   setId = (id: number): boolean => {
     if (!id || id <= 0) {
@@ -35,6 +40,8 @@ export default class Entrada {
     this._id = id;
     return true;
   };
+
+  getCupomFiscal = () => this._cupomFiscal;
 
   getData = (): Date => this._data;
 
@@ -63,6 +70,16 @@ export default class Entrada {
       return false;
     }
     this._cnpjFornecedor = cnpjFornecedor;
+    return true;
+  };
+
+  getPrecoTotal = (): number => this._precoTotal;
+
+  setPrecoTotal = (precoTotal: number): boolean => {
+    if (precoTotal == null || precoTotal < 0) {
+      return false;
+    }
+    this._precoTotal = precoTotal;
     return true;
   };
 

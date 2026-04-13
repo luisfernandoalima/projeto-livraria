@@ -1,13 +1,25 @@
+import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
 import Usuario from "../class/Usuario.js";
-import UsuarioDAO from "../dao/UsuarioDAO.js";
+import UsuarioDAO from "../dal/UsuarioDAO.js";
 export default class UserController {
-  Create = (req: Request, res: Response) => {
-    const dao = new UsuarioDAO();
+  private ACCESS_TOKEN = process.env.ACCESS_TOKEN_KEY;
 
-    const newUser = req.body;
+  private dao = new UsuarioDAO();
 
-    if (!dao.Create(newUser)) {
+  Create = async (req: Request, res: Response) => {
+    const { nome, email, senha, telefone, cpf, cargo } = req.body;
+    const newUser: Usuario = new Usuario(
+      null,
+      nome,
+      email,
+      senha,
+      telefone,
+      cpf,
+      cargo,
+    );
+
+    if (!(await this.dao.Create(newUser))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -18,12 +30,10 @@ export default class UserController {
       .json({ message: "Usuário cadastrado!", type: "success" });
   };
 
-  Read = (req: Request, res: Response) => {
-    const id = Number(req.params);
+  Read = async (req: Request, res: Response) => {
+    const id = Number(req.params.id);
 
-    const dao = new UsuarioDAO();
-
-    const user = dao.Read(id);
+    const user = await this.dao.Read(id);
 
     if (!user) {
       return res
@@ -31,15 +41,22 @@ export default class UserController {
         .json({ message: "Erro ao buscar usuário", type: "error" });
     }
 
-    return res.status(201).json(user);
+    return res.status(200).json(user);
   };
 
-  Update = (req: Request, res: Response) => {
-    const id = Number(req.params);
+  Update = async (req: Request, res: Response) => {
+    const { id, nome, email, senha, telefone, cpf, cargo } = req.body;
+    const updatedUser: Usuario = new Usuario(
+      id,
+      nome,
+      email,
+      senha,
+      telefone,
+      cpf,
+      cargo,
+    );
 
-    const dao = new UsuarioDAO();
-
-    if (!dao.Update(id)) {
+    if (!(await this.dao.Update(updatedUser))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -50,12 +67,10 @@ export default class UserController {
       .json({ message: "Usuário cadastrado!", type: "success" });
   };
 
-  Delete = (req: Request, res: Response) => {
-    const id = Number(req.params);
+  Delete = async (req: Request, res: Response) => {
+    const { id } = req.params;
 
-    const dao = new UsuarioDAO();
-
-    if (!dao.Delete(id)) {
+    if (!(await this.dao.Delete(Number(id)))) {
       return res
         .status(400)
         .json({ message: "Erro ao excluir usuário", type: "error" });
@@ -66,11 +81,37 @@ export default class UserController {
       .json({ message: "Usuário excluído!", type: "success" });
   };
 
-  Login = (req: Request, res: Response) => {};
+  Login = async (req: Request, res: Response) => {
+    const { email, senha } = req.body;
 
-  listUsers = (req: Request, res: Response): Usuario[] => {
-    const users: Usuario[] = [];
+    const user: Usuario = await this.dao.Login(email, senha);
 
-    return users;
+    if (!user) {
+      return res
+        .status(403)
+        .json({ message: "Erro ao executar login", type: "error" });
+    }
+
+    const token = jwt.sign(
+      { id: user.getId(), email: user.getEmail() },
+      this.ACCESS_TOKEN!,
+      {
+        expiresIn: "1h",
+      },
+    );
+
+    res.json({ token });
+  };
+
+  listUsers = async (req: Request, res: Response) => {
+    const user = await this.dao.listUsers();
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao buscar usuário", type: "error" });
+    }
+
+    return res.status(201).json(user);
   };
 }

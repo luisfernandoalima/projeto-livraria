@@ -1,33 +1,57 @@
 export default class Usuario {
-  constructor(id: number, nome: String, email: String, cargo: String) {
-    this._id = id;
+  constructor(
+    id: number | null,
+    nome: string,
+    email: string,
+    senha: string,
+    telefone: string,
+    cpf: string,
+    cargo: number,
+  ) {
+    this._id = id || null;
     this._nome = nome;
     this._email = email;
+    this._senha = senha;
+    this._telefone = telefone;
+    this._cpf = cpf;
     this._cargo = cargo;
   }
 
-  private _id: number;
-  private _nome: String;
-  private _email: String;
-  private _cargo: String;
+  private _id: number | null;
+  private _nome: string;
+  private _email: string;
+  private _senha: string;
+  private _telefone: string;
+  private _cpf: string;
+  private _cargo: number;
 
-  getId = (): number => this._id;
+  getId = (): number | null => this._id;
 
   setId = (id: number) => {
     this._id = id;
   };
 
-  getNome = (): String => this._nome;
+  getNome = (): string => this._nome;
 
-  setNome = (nome: String) => {
+  setNome = (nome: string) => {
     this._nome = nome;
   };
 
-  getemail = (): String => this._email;
+  getEmail = (): string => this._email;
 
-  setEmail = (email: String) => {
+  setEmail = (email: string) => {
     this._email = email;
   };
 
-  getCargo = (): String => this._cargo;
+  setSenha = (senha: string) => (this._senha = senha);
+  getSenha = (): string => this._senha;
+
+  setTelefone = (telefone: string) => (this._telefone = telefone);
+  getTelefone = (): string => this._telefone;
+
+  setCPF = (cpf: string) => (this._cpf = cpf);
+  getCPF = () => this._cpf;
+
+  setCargo = (cargo: number) => (this._cargo = cargo);
+  getCargo = (): number => this._cargo;
 }
