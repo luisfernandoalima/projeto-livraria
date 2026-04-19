@@ -5,18 +5,36 @@ import LoginButton from "~/components/ui/forms/LoginButton.vue";
 import { ref } from "vue";
 import { useRouter } from "#app";
 import { useApi } from "~/composables/useApi";
+import { useToast } from "#imports";
+
+import { validateLogin } from "~/utils/formValidation";
 
 const api = useApi();
 
 const email = ref("");
 const password = ref("");
 const router = useRouter();
+const toast = useToast();
 
 type TLoginResponse = {
   token: string;
 };
 
 const login = async () => {
+  const data = {
+    email: email.value,
+    password: password.value,
+  };
+
+  const validationError = validateLogin(data);
+
+  if (Object.keys(validationError).length > 0) {
+    Object.values(validationError).forEach((value) => {
+      toast.error({ title: "Erro!", message: value });
+    });
+    return;
+  }
+
   try {
     const response = await api<TLoginResponse>("/user/login", {
       method: "POST",

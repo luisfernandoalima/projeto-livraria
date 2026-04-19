@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import type { Request, Response } from "express";
+import type IUsuario from "../types/Usuario.js";
 import Usuario from "../class/Usuario.js";
 import UsuarioDAO from "../dal/UsuarioDAO.js";
 export default class UserController {
@@ -8,18 +9,19 @@ export default class UserController {
   private dao = new UsuarioDAO();
 
   Create = async (req: Request, res: Response) => {
-    const { nome, email, senha, telefone, cpf, cargo } = req.body;
-    const newUser: Usuario = new Usuario(
-      null,
-      nome,
-      email,
-      senha,
-      telefone,
-      cpf,
-      cargo,
-    );
+    const newUser: IUsuario = {
+      id: null,
+      nome: req.body.nome,
+      email: req.body.email,
+      senha: req.body.senha,
+      telefone: req.body.telefone,
+      cpf: req.body.cpf,
+      cargo: req.body.cargo,
+    };
 
-    if (!(await this.dao.Create(newUser))) {
+    const usuario: Usuario = new Usuario(newUser);
+
+    if (!(await this.dao.Create(usuario))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -45,18 +47,19 @@ export default class UserController {
   };
 
   Update = async (req: Request, res: Response) => {
-    const { id, nome, email, senha, telefone, cpf, cargo } = req.body;
-    const updatedUser: Usuario = new Usuario(
-      id,
-      nome,
-      email,
-      senha,
-      telefone,
-      cpf,
-      cargo,
-    );
+    const user: IUsuario = {
+      id: req.body.id,
+      nome: req.body.nome,
+      email: req.body.email,
+      senha: req.body.senha,
+      telefone: req.body.telefone,
+      cpf: req.body.cpf,
+      cargo: req.body.cargo,
+    };
 
-    if (!(await this.dao.Update(updatedUser))) {
+    const usuario: Usuario = new Usuario(user);
+
+    if (!(await this.dao.Update(usuario))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -84,7 +87,7 @@ export default class UserController {
   Login = async (req: Request, res: Response) => {
     const { email, senha } = req.body;
 
-    const user: Usuario = await this.dao.Login(email, senha);
+    const user = await this.dao.Login(email, senha);
 
     if (!user) {
       return res
@@ -92,8 +95,10 @@ export default class UserController {
         .json({ message: "Erro ao executar login", type: "error" });
     }
 
+    const usuario: Usuario = new Usuario(user);
+
     const token = jwt.sign(
-      { id: user.getId(), email: user.getEmail() },
+      { id: usuario.getId(), email: usuario.getEmail() },
       this.ACCESS_TOKEN!,
       {
         expiresIn: "1h",

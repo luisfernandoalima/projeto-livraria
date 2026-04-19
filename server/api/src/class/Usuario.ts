@@ -1,20 +1,14 @@
+import type IUsuario from "../types/Usuario.js";
+
 export default class Usuario {
-  constructor(
-    id: number | null,
-    nome: string,
-    email: string,
-    senha: string,
-    telefone: string,
-    cpf: string,
-    cargo: number,
-  ) {
-    this._id = id || null;
-    this._nome = nome;
-    this._email = email;
-    this._senha = senha;
-    this._telefone = telefone;
-    this._cpf = cpf;
-    this._cargo = cargo;
+  constructor(user: IUsuario) {
+    this._id = user.id;
+    this._nome = user.nome;
+    this._email = user.email;
+    this._senha = user.senha;
+    this._telefone = user.telefone;
+    this._cpf = user.cpf;
+    this._cargo = user.cargo;
   }
 
   private _id: number | null;
