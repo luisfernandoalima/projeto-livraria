@@ -1,5 +1,19 @@
 @import "tailwindcss";
 
+html,
 body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
   font-size: 1.2em;
+}
+
+#__nuxt {
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1;
 }

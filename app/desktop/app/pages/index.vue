@@ -1,9 +1,10 @@
 <script setup>
 definePageMeta({
   middleware: "auth",
+  layout: "default",
 });
 </script>
 
 <template>
-  <h1>Página Inicial</h1>
+  <NuxtLayout></NuxtLayout>
 </template>
