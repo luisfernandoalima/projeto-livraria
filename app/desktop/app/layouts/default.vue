@@ -1,94 +1,61 @@
 <script setup></script>
 
 <template>
-  <header class="flex items-center justify-evenly gap-3">
+  <header class="flex items-center justify-start gap-10 flex-col">
     <div>
-      <NuxtLink to="/">
+      <NuxtLink to="/" class="flex justify-center items-center">
+        <img src="/img/tsuru-logo.jpeg" alt="Tsuru" />
         <h1>TSURU</h1>
       </NuxtLink>
     </div>
-    <div class="w-full">
-      <form action="" class="w-full flex justify-center">
-        <label class="search_bar" for="searchBar">
-          <input
-            type="text"
-            name=""
-            id="searchBar"
-            placeholder="Buscar produto"
-          />
-          <button>Buscar</button>
-        </label>
-      </form>
-    </div>
-
-    <div>Perfil</div>
-  </header>
-  <div class="main_area">
     <nav>
       <ul>
         <li>
           <NuxtLink to="/">Home</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="">Vendas</NuxtLink>
+          <NuxtLink to="">Perfil</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="">Estoques</NuxtLink>
+          <NuxtLink to="">Estoque</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="">Usuários</NuxtLink>
+          <NuxtLink to="">Operações</NuxtLink>
         </li>
         <li>
-          <NuxtLink to="">Produtos</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to=""></NuxtLink>
+          <NuxtLink to="">Colaboradores</NuxtLink>
         </li>
       </ul>
     </nav>
+  </header>
+  <main class="main_area">
     <main>
       <slot />
     </main>
-  </div>
+  </main>
 </template>
 
 <style scoped>
 header {
-  padding: 1em;
+  padding: 0.3em;
   box-shadow: 0px 5px 10px #00000073;
-}
-
-.search_bar {
-  display: flex;
-  justify-content: space-between;
-  border: 2px solid #000;
-  cursor: text;
-  width: 70%;
-
-  input {
-    padding: 5px;
-    width: 100%;
-  }
-  input:focus {
-    outline: none;
-  }
-
-  button {
-    cursor: pointer;
-  }
-}
-
-.main_area {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 15% 85%;
+  border-radius: 0px 15px 15px 0px;
+  background-color: #fff;
 }
 
 nav {
+  display: block;
+  width: 100%;
+
   a {
+    display: block;
+    cursor: pointer;
+    padding: 5px;
+    width: 100%;
     color: #5b0606;
-    font-weight: 500;
-    font-size: 1.8em;
+    font-weight: 400;
+    font-size: 1.5em;
+    transition: 0.3s;
   }
 
   ul {
@@ -98,10 +65,27 @@ nav {
     flex-direction: column;
     gap: 20px;
     padding: 20px 15px;
+    width: 100%;
+
+    li {
+      width: 100%;
+      border-bottom: 1px solid #141414;
+      transition: 0.5s;
+
+      &:hover {
+        background-color: #5b0606;
+        border-radius: 10px;
+
+        a {
+          color: #fff;
+        }
+      }
+    }
   }
 }
 
 main {
   background-color: #5b0606;
+  padding: 15px 50px;
 }
 </style>
