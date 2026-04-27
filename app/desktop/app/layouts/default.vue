@@ -1,41 +1,52 @@
 <script setup></script>
 
 <template>
-  <header class="flex items-center justify-start gap-10 flex-col">
-    <div>
-      <NuxtLink to="/" class="flex justify-center items-center">
-        <img src="/img/tsuru-logo.jpeg" alt="Tsuru" />
-        <h1>TSURU</h1>
-      </NuxtLink>
-    </div>
-    <nav>
-      <ul>
-        <li>
-          <NuxtLink to="/">Home</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="">Perfil</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="">Estoque</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="">Operações</NuxtLink>
-        </li>
-        <li>
-          <NuxtLink to="">Colaboradores</NuxtLink>
-        </li>
-      </ul>
-    </nav>
-  </header>
-  <main class="main_area">
-    <main>
-      <slot />
+  <div class="main_body">
+    <header class="flex items-center justify-start gap-10 flex-col">
+      <div>
+        <NuxtLink to="/" class="flex justify-center items-center">
+          <img src="/img/tsuru-logo.jpeg" alt="Tsuru" />
+          <h1>TSURU</h1>
+        </NuxtLink>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <NuxtLink to="/">Home</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="">Perfil</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="">Estoque</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="">Operações</NuxtLink>
+          </li>
+          <li>
+            <NuxtLink to="/colaborador/novo-colaborador"
+              >Colaboradores</NuxtLink
+            >
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main class="main_area">
+      <main>
+        <slot />
+      </main>
     </main>
-  </main>
+  </div>
 </template>
 
 <style scoped>
+.main_body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 15% 85%;
+  background-color: #5b0606;
+}
+
 header {
   padding: 0.3em;
   box-shadow: 0px 5px 10px #00000073;

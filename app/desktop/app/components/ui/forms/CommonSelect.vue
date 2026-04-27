@@ -4,8 +4,6 @@ import { defineProps } from "vue";
 defineProps({
   text: String,
   name: String,
-  type: String,
-  placeholder: String,
   modelValue: String,
 });
 
@@ -15,13 +13,16 @@ const emit = defineEmits(["update:modelValue"]);
 <template>
   <div>
     <label :for="name">{{ text }}</label>
-    <input
-      :type="type"
-      :placeholder="placeholder"
+    <select
       :name="name"
       :id="name"
-      @input="emit('update:modelValue', $event.target.value)"
-    />
+      :model-value="modelValue"
+      @change="emit('update:modelValue', $event.target.value)"
+    >
+      <option value="">Escolha uma opção</option>
+      <option :value="2">Colaborador</option>
+      <option :value="1">Adiministrador</option>
+    </select>
   </div>
 </template>
 
@@ -34,17 +35,9 @@ div {
   font-size: 1.2em;
 }
 
-input {
+select {
   border: 2px solid #fff;
   border-radius: 10px;
-  padding: 3px;
-}
-
-input:focus {
-  outline: none;
-}
-
-input::placeholder {
-  color: #ababab;
+  padding: 4px;
 }
 </style>
