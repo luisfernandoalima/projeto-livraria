@@ -96,7 +96,10 @@ const createUser = async () => {
         />
         <CommonSelect text="Função" name="funcao" v-model="cargo" />
       </div>
-      <input type="submit" value="Enviar" />
+      <div class="button_area">
+        <input type="reset" value="Cancelar" class="cancel_button" />
+        <input type="submit" value="Enviar" class="submit_button" />
+      </div>
     </form>
   </NuxtLayout>
 </template>
@@ -108,5 +111,30 @@ const createUser = async () => {
   gap: 100px;
   align-items: start;
   justify-items: center;
+}
+
+.button_area {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  gap: 20px;
+  margin-top: 50px;
+
+  input {
+    padding: 4px 6px;
+    border-radius: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    width: 100px;
+  }
+
+  .cancel_button {
+    border: 2px solid #fff;
+    color: #fff;
+  }
+
+  .submit_button {
+    background-color: #fff;
+  }
 }
 </style>

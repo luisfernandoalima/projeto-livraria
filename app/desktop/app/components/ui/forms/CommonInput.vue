@@ -21,6 +21,7 @@ const emit = defineEmits(["update:modelValue"]);
       :name="name"
       :id="name"
       @input="emit('update:modelValue', $event.target.value)"
+      autocomplete="off"
     />
   </div>
 </template>

@@ -24,9 +24,7 @@
             <NuxtLink to="">Operações</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="/colaborador/novo-colaborador"
-              >Colaboradores</NuxtLink
-            >
+            <NuxtLink to="/colaborador">Colaboradores</NuxtLink>
           </li>
         </ul>
       </nav>

@@ -27,6 +27,7 @@ const emit = defineEmits(["update:value"]);
 form {
   width: 100%;
   color: #fff;
+  margin-bottom: 25px;
 }
 
 label {
