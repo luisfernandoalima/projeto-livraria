@@ -1,80 +1,50 @@
 import fs from "fs";
 import path from "path";
-import { v4 as uuidv4 } from "uuid";
 
 import type { Request, Response } from "express";
 import Produto from "../class/Produto.js";
 import { ProdutoDAO } from "../dal/ProdutoDAO.js";
-
+import type { IProduto } from "../types/TProduto.js";
 import createUpload from "../middlewares/imageUpload.js";
 export default class ProdutoController {
   private dao = new ProdutoDAO();
 
   Create = async (req: Request, res: Response) => {
+    console.log("REQ BODY:", req.body);
+    console.log("REQ FILE:", req.file);
     try {
-      const imgId = uuidv4();
-      const upload = createUpload(imgId);
-      upload.single("imgCapa")(req, res, async (err: any) => {
-        if (err) {
-          return res
-            .status(400)
-            .json({ message: "Erro no upload da imagem", error: err });
-        }
-        const file = req.file;
+      const file = req.file;
 
-        const imgCapa = file ? `/uploads/${file.filename}` : null;
+      const imgCapa = file ? `/uploads/${file.filename}` : null;
 
-        const {
-          id,
-          titulo,
-          subtitulo,
-          sinopse,
-          autor,
-          serie,
-          volume,
-          isbn13,
-          formato,
-          numPaginas,
-          idioma,
-          dataPublicacao,
-          genero,
-          classIndicativa,
-          preco,
-          estoque,
-          status,
-        } = req.body;
+      const data: IProduto = {
+        id: req.body.id,
+        titulo: req.body.titulo,
+        autor: req.body.autor,
+        serie: req.body.serie,
+        volume: req.body.volume,
+        isbn13: req.body.isbn,
+        numPaginas: req.body.numPaginas,
+        idioma: req.body.idioma,
+        dataPublicacao: new Date(req.body.dataPublicacao),
+        genero: req.body.genero,
+        classIndicativa: req.body.classIndicativa,
+        preco: Number(req.body.preco),
+        estoque: 0,
+        imgCapa: imgCapa,
+      };
 
-        const newProduct = new Produto(
-          id,
-          titulo,
-          subtitulo,
-          sinopse,
-          autor,
-          serie,
-          volume,
-          isbn13,
-          formato,
-          numPaginas,
-          idioma,
-          new Date(dataPublicacao),
-          genero,
-          classIndicativa,
-          Number(preco),
-          estoque,
-          status,
-          imgCapa,
-        );
+      const newProduct = new Produto(data);
 
-        if (!(await this.dao.Criar(newProduct))) {
-          return res
-            .status(400)
-            .json({ message: "Erro na criação do produto.", type: "error" });
-        }
-
+      if (!(await this.dao.Criar(newProduct))) {
         return res
-          .status(201)
-          .json({ message: "Produto criado!", type: "success" });
-      });
+          .status(400)
+          .json({ message: "Erro na criação do produto.", type: "error" });
+      }
+
+      return res
+        .status(201)
+        .json({ message: "Produto criado!", type: "success" });
     } catch (err) {
       return res
         .status(400)
@@ -147,28 +117,26 @@ export default class ProdutoController {
         }
       }
 
-      const updatedProduct = new Produto(
-        id,
-        titulo,
-        subtitulo,
-        sinopse,
-        autor,
-        serie,
-        volume,
-        isbn13,
-        formato,
-        numPaginas,
-        idioma,
-        new Date(dataPublicacao),
-        genero,
-        classIndicativa,
-        Number(preco),
-        estoque,
-        status,
-        imgCapa,
-      );
+      const data: IProduto = {
+        id: req.body.id,
+        titulo: req.body.titulo,
+        autor: req.body.autor,
+        serie: req.body.serie,
+        volume: req.body.volume,
+        isbn13: req.body.isbn,
+        numPaginas: Number(req.body.numPaginas),
+        idioma: req.body.idioma,
+        dataPublicacao: new Date(req.body.dataPublicacao),
+        genero: req.body.genero,
+        classIndicativa: req.body.classIndicativa,
+        preco: Number(req.body.preco),
+        estoque: 0,
+        imgCapa: imgCapa,
+      };
 
-      if (!(await this.dao.Alterar(updatedProduct))) {
+      const updatedData = new Produto(data);
+
+      if (!(await this.dao.Alterar(updatedData))) {
         return res.status(400).json({
           message: "Erro ao atualizar produto",
           type: "error",

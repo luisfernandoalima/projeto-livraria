@@ -1,6 +1,9 @@
 import { Router } from "express";
 
 import authValidate from "../middlewares/auth.js";
+import createUpload from "../middlewares/imageUpload.js";
+
+import { v4 as uuidv4 } from "uuid";
 
 import UserController from "../controller/UserController.js";
 import ProdutoController from "../controller/ProductController.js";
@@ -20,7 +23,12 @@ route.patch("/user/update", authValidate, userController.Update);
 route.delete("/user/delete/:id", authValidate, userController.Delete);
 route.get("/user/list-users", authValidate, userController.listUsers);
 
-route.post("/product/create", authValidate, produtoController.Create);
+route.post(
+  "/product/create",
+  authValidate,
+  createUpload(uuidv4()).single("imgCapa"),
+  produtoController.Create,
+);
 route.get("/product/find-product/:id", produtoController.Read);
 route.patch("/product/update/:id", authValidate, produtoController.Update);
 route.delete("/product/delete/:id", authValidate, produtoController.Delete);
