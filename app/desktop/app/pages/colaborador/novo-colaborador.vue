@@ -22,6 +22,17 @@ const telefone = ref("");
 const senha = ref("");
 const cargo = ref("");
 
+const cargos = [
+  {
+    id: 1,
+    text: "Administrador",
+  },
+  {
+    id: 2,
+    text: "Colaborador",
+  },
+];
+
 const createUser = async () => {
   const data = {
     nome: name.value,
@@ -94,7 +105,12 @@ const createUser = async () => {
           placeholder="Digite a senha"
           v-model="senha"
         />
-        <CommonSelect text="Função" name="funcao" v-model="cargo" />
+        <CommonSelect
+          text="Função"
+          name="funcao"
+          v-model="cargo"
+          :options="cargos"
+        />
       </div>
       <div class="button_area">
         <input type="reset" value="Cancelar" class="cancel_button" />

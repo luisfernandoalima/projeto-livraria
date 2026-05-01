@@ -4,6 +4,10 @@ import { defineProps } from "vue";
 defineProps({
   text: String,
   name: String,
+  options: {
+    type: Array,
+    required: true,
+  },
   modelValue: String,
 });
 
@@ -20,8 +24,9 @@ const emit = defineEmits(["update:modelValue"]);
       @change="emit('update:modelValue', $event.target.value)"
     >
       <option value="">Escolha uma opção</option>
-      <option :value="2">Colaborador</option>
-      <option :value="1">Adiministrador</option>
+      <option v-for="option in options" :key="option.id" :value="option.id">
+        {{ option.text }}
+      </option>
     </select>
   </div>
 </template>
