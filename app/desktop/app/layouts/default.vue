@@ -30,9 +30,7 @@
       </nav>
     </header>
     <main class="main_area">
-      <main>
-        <slot />
-      </main>
+      <slot />
     </main>
   </div>
 </template>
