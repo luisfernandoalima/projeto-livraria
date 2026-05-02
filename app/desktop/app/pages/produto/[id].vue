@@ -1,5 +1,6 @@
 <script setup>
 import SearchBar from "~/components/layout/SearchBar.vue";
+import { Icon } from "@iconify/vue";
 definePageMeta({
   middleware: "auth",
   layout: "default",
@@ -31,7 +32,14 @@ const voltar = () => {
 <template>
   <NuxtLayout>
     <SearchBar />
-    <button @click="voltar()" class="back_button">Voltar</button>
+    <button @click="voltar()" class="back_button">
+      <Icon
+        icon="mingcute:arrow-left-line"
+        width="35"
+        height="35"
+        style="color: #000"
+      />
+    </button>
     <div class="product_main w-full">
       <img
         :src="`http://localhost:8081${produto.imagem_capa}`"
@@ -106,7 +114,7 @@ const voltar = () => {
 
 <style scoped>
 .product_main {
-  margin: 50px 0px;
+  margin: 20px 0px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   color: #fff;
@@ -121,8 +129,13 @@ const voltar = () => {
 }
 
 .back_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background-color: #fff;
   border-radius: 50%;
+  height: 40px;
+  width: 40px;
 }
 
 img {

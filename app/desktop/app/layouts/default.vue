@@ -1,4 +1,6 @@
-<script setup></script>
+<script setup>
+import { Icon } from "@iconify/vue";
+</script>
 
 <template>
   <div class="main_body">
@@ -12,19 +14,31 @@
       <nav>
         <ul>
           <li>
-            <NuxtLink to="/">Home</NuxtLink>
+            <NuxtLink to="/"
+              ><Icon
+                icon="material-symbols:home-outline-rounded"
+              />Home</NuxtLink
+            >
           </li>
           <li>
-            <NuxtLink to="">Perfil</NuxtLink>
+            <NuxtLink to=""><Icon icon="lucide:circle-user" />Perfil</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="">Estoque</NuxtLink>
+            <NuxtLink to="">
+              <Icon
+                icon="material-symbols:home-outline-rounded"
+              />Estoque</NuxtLink
+            >
           </li>
           <li>
-            <NuxtLink to="">Operações</NuxtLink>
+            <NuxtLink to=""
+              ><Icon icon="fluent:arrow-sort-16-filled" />Operações</NuxtLink
+            >
           </li>
           <li>
-            <NuxtLink to="/colaborador">Colaboradores</NuxtLink>
+            <NuxtLink to="/colaborador"
+              ><Icon icon="ri:team-line" />Colaboradores</NuxtLink
+            >
           </li>
         </ul>
       </nav>
@@ -55,7 +69,10 @@ nav {
   width: 100%;
 
   a {
-    display: block;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
     padding: 5px;
     width: 100%;
