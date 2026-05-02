@@ -1,10 +1,26 @@
 <script setup>
 import SearchBar from "~/components/layout/SearchBar.vue";
 import ItemCard from "~/components/layout/ItemCard.vue";
+
+import { useApi } from "#imports";
+
 definePageMeta({
   middleware: "auth",
   layout: "default",
 });
+
+const api = useApi();
+const token = useCookie("auth_token");
+
+const response = await api("/product/list-products", {
+  method: "GET",
+  headers: {
+    authorization: `Bearer ${token.value}`,
+  },
+});
+
+const produtos = response.produtos;
+console.log(response);
 </script>
 
 <template>
@@ -12,7 +28,13 @@ definePageMeta({
     <SearchBar></SearchBar>
 
     <div class="main_area">
-      <ItemCard name="foto" link="/" image="/img/tsuru-logo.jpeg" />
+      <ItemCard
+        v-for="value in produtos"
+        :key="value.id"
+        :name="value.titulo"
+        :link="`/produto/${value.id}`"
+        :image="`http://localhost:8081${value.imagem_capa}`"
+      />
     </div>
   </NuxtLayout>
 </template>
