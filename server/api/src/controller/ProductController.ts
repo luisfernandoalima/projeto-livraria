@@ -211,13 +211,21 @@ export default class ProdutoController {
   };
 
   listProducts = async (req: Request, res: Response) => {
-    const produtos = await this.dao.Listar();
+    const data = await this.dao.Listar();
 
-    if (!produtos) {
+    if (!data) {
       return res
         .status(400)
         .json({ message: "Erro ao buscar produtos", type: "error" });
     }
+
+    const produtos: Produto[] = [];
+
+    data.forEach((item) => {
+      produtos.push(new Produto(item));
+    });
+
+    console.log(produtos);
 
     return res.status(200).json({ produtos });
   };
