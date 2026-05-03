@@ -13,7 +13,7 @@ defineProps({
         class="image_content"
         :style="{ backgroundImage: `url(${image})` }"
       ></div>
-      <p>{{ name }}</p>
+      <p class="mt-1 mb-1">{{ name }}</p>
     </NuxtLink>
   </div>
 </template>

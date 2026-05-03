@@ -24,10 +24,8 @@ import { Icon } from "@iconify/vue";
             <NuxtLink to=""><Icon icon="lucide:circle-user" />Perfil</NuxtLink>
           </li>
           <li>
-            <NuxtLink to="">
-              <Icon
-                icon="material-symbols:home-outline-rounded"
-              />Estoque</NuxtLink
+            <NuxtLink to="/estoque">
+              <Icon icon="fluent:box-24-regular" />Estoque</NuxtLink
             >
           </li>
           <li>
