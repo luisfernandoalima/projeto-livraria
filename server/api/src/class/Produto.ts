@@ -14,7 +14,7 @@ export default class Produto {
   private _classIndicativa: String;
   private _preco: number;
   private _estoque: number;
-  private _imgCapa: String | null;
+  private _imgCapa: string;
 
   constructor(produto: IProduto) {
     this._id = produto.id || null;
@@ -23,14 +23,14 @@ export default class Produto {
     this._serie = produto.serie;
     this._volume = produto.volume;
     this._isbn13 = produto.isbn13;
-    this._numPaginas = produto.numPaginas;
+    this._numPaginas = produto.numero_paginas;
     this._idioma = produto.idioma;
-    this._dataPublicacao = produto.dataPublicacao;
+    this._dataPublicacao = produto.data_publicacao;
     this._genero = produto.genero;
-    this._classIndicativa = produto.classIndicativa;
+    this._classIndicativa = produto.classificacao_indicativa;
     this._preco = produto.preco;
     this._estoque = produto.estoque;
-    this._imgCapa = produto.imgCapa || null;
+    this._imgCapa = produto.imagem_capa;
   }
 
   getId(): number | null {
@@ -137,11 +137,11 @@ export default class Produto {
     this._estoque = value;
   }
 
-  getImgCapa(): String | null {
+  getImgCapa(): string {
     return this._imgCapa;
   }
 
-  setImgCapa(value: String) {
+  setImgCapa(value: string) {
     this._imgCapa = value;
   }
 }

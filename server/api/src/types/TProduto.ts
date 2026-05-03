@@ -5,12 +5,12 @@ export interface IProduto {
   serie: String;
   volume: String;
   isbn13: String;
-  numPaginas: number;
+  numero_paginas: number;
   idioma: String;
-  dataPublicacao: Date;
+  data_publicacao: Date;
   genero: String;
-  classIndicativa: String;
+  classificacao_indicativa: String;
   preco: number;
   estoque: number;
-  imgCapa: String | null;
+  imagem_capa: string;
 }
