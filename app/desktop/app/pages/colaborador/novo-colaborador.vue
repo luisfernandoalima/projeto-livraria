@@ -1,6 +1,7 @@
 <script setup>
 import CommonInput from "~/components/ui/forms/CommonInput.vue";
 import CommonSelect from "~/components/ui/forms/CommonSelect.vue";
+import BackButton from "~/components/layout/BackButton.vue";
 
 import { useApi } from "~/composables/useApi";
 import { useToast } from "#imports";
@@ -64,8 +65,8 @@ const createUser = async () => {
 
 <template>
   <NuxtLayout>
-    <h1 class="text-3xl font-bold text-white mt-9 mb-9">
-      Preencha os campos abaixo:
+    <h1 class="text-3xl font-bold text-white mb-4 flex gap-5">
+      <BackButton /> Preencha os campos abaixo:
     </h1>
 
     <form @submit.prevent="createUser">

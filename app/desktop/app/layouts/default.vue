@@ -29,7 +29,7 @@ import { Icon } from "@iconify/vue";
             >
           </li>
           <li>
-            <NuxtLink to=""
+            <NuxtLink to="/operacoes"
               ><Icon icon="fluent:arrow-sort-16-filled" />Operações</NuxtLink
             >
           </li>

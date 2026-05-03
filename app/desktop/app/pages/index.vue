@@ -30,10 +30,10 @@ console.log(response);
     <div class="main_area">
       <ItemCard
         v-for="value in produtos"
-        :key="value.id"
-        :name="value.titulo"
-        :link="`/produto/${value.id}`"
-        :image="`http://localhost:8081${value.imagem_capa}`"
+        :key="value._id"
+        :name="value._titulo"
+        :link="`/produto/${value._id}`"
+        :image="`http://localhost:8081${value._imgCapa}`"
       />
     </div>
   </NuxtLayout>

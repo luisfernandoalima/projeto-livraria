@@ -1,6 +1,8 @@
 <script setup>
 import SearchBar from "~/components/layout/SearchBar.vue";
-import { Icon } from "@iconify/vue";
+
+import BackButton from "~/components/layout/BackButton.vue";
+
 definePageMeta({
   middleware: "auth",
   layout: "default",
@@ -32,14 +34,7 @@ const voltar = () => {
 <template>
   <NuxtLayout>
     <SearchBar />
-    <button @click="voltar()" class="back_button">
-      <Icon
-        icon="mingcute:arrow-left-line"
-        width="35"
-        height="35"
-        style="color: #000"
-      />
-    </button>
+    <BackButton />
     <div class="product_main w-full">
       <img
         :src="`http://localhost:8081${produto.imagem_capa}`"
@@ -126,16 +121,6 @@ const voltar = () => {
     align-items: flex-start;
     justify-content: space-between;
   }
-}
-
-.back_button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #fff;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
 }
 
 img {
