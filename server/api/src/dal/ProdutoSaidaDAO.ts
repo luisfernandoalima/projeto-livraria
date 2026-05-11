@@ -3,12 +3,12 @@ import { pool } from "../database/connection.js";
 export default class ProdutoSaidaDAO {
   Registrar = async (
     saidaId: number,
-    produtoId: number,
+    produtoId: number | null,
     quantidade: number,
     valor: number,
   ) => {
     try {
-      await pool.query("INSERT INTO saida_produto VALUES ($1, $2, $3, $4)", [
+      await pool.query("INSERT INTO produto_saida VALUES ($1, $2, $3, $4)", [
         saidaId,
         produtoId,
         quantidade,

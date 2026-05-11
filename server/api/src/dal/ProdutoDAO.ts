@@ -65,7 +65,6 @@ export class ProdutoDAO {
         id,
       ]);
 
-      console.log(result);
       return result.rows[0];
     } catch (err) {
       console.error(`Erro ao consultar produto: ${err}`);

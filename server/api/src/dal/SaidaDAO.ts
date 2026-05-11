@@ -2,7 +2,7 @@ import { pool } from "../database/connection.js";
 import Saida from "../class/Saida.js";
 
 export default class SaidaDAO {
-  Registrar = async (newExit: Saida, userId: number) => {
+  Registrar = async (newExit: Saida) => {
     try {
       await pool.query(
         "INSERT INTO saida VALUES (default, $1, $2, $3, $4, $5, $6, $7)",
@@ -13,13 +13,16 @@ export default class SaidaDAO {
           newExit.getPrecoTotal(),
           newExit.getTipoPagamento(),
           newExit.getData(),
-          userId,
+          newExit.getColaborador().getId(),
         ],
       );
+
       const exitId = await pool.query(
-        "SELECT id FROM entrada WHERE cupom_fiscal=$1",
+        "SELECT id FROM saida WHERE cupom_fiscal = $1",
         [newExit.getCupomFiscal()],
       );
+
+      console.log(exitId);
 
       return exitId.rows[0];
     } catch (err) {

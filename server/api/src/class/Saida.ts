@@ -1,6 +1,7 @@
 import ProdutoSaida from "./ProdutoSaida.js";
 import Usuario from "./Usuario.js";
 import { TipoPagamento } from "../enums/TipoPagamento.js";
+import type { ISaida } from "../types/ISaida.js";
 
 export default class Saida {
   private _id: number | null;
@@ -13,26 +14,16 @@ export default class Saida {
   private _produtos: ProdutoSaida[];
   private _colaborador: Usuario;
 
-  constructor(
-    id: number | null,
-    cupomFiscal: string,
-    precoTotal: number,
-    data: Date,
-    cliente: String,
-    cpfCliente: String,
-    tipoPagamento: TipoPagamento,
-    produtos: ProdutoSaida[] = [],
-    colaborador: Usuario,
-  ) {
-    this._id = id;
-    this._cupomFiscal = cupomFiscal;
-    this._precoTotal = precoTotal;
-    this._cliente = cliente;
-    this._data = data;
-    this._cpfCliente = cpfCliente;
-    this._tipoPagamento = tipoPagamento;
-    this._produtos = produtos;
-    this._colaborador = colaborador;
+  constructor(saida: ISaida) {
+    this._id = saida.id;
+    this._cupomFiscal = saida.cupomFiscal;
+    this._precoTotal = saida.precoTotal;
+    this._cliente = saida.cliente;
+    this._data = saida.data;
+    this._cpfCliente = saida.cpfCliente;
+    this._tipoPagamento = saida.tipoPagamento;
+    this._produtos = saida.produtos;
+    this._colaborador = saida.colaborador;
   }
 
   getId = () => this._id;
