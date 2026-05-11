@@ -22,13 +22,7 @@ const data = await api(`/product/find-product/${id}`, {
   },
 });
 
-console.log(data);
-
 const produto = data.produto;
-
-const voltar = () => {
-  history.back();
-};
 </script>
 
 <template>
