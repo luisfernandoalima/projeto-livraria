@@ -3,7 +3,7 @@ import { pool } from "../database/connection.js";
 export default class ProdutoEntradaDAO {
   Registrar = async (
     entradaId: number,
-    produtoId: number,
+    produtoId: number | null,
     quantidade: number,
     valor: number,
   ) => {

@@ -1,6 +1,8 @@
 import ProdutoEntrada from "./ProdutoEntrada.js";
 import type Usuario from "./Usuario.js";
 
+import type { IEntrada } from "../types/IEntrada.js";
+
 export default class Entrada {
   private _id: number | null;
   private _cupomFiscal: string;
@@ -11,24 +13,15 @@ export default class Entrada {
   private _produtos: ProdutoEntrada[];
   private _colaborador: Usuario;
 
-  constructor(
-    id: number | null,
-    cupomFiscal: string,
-    data: Date,
-    nomeFornecedor: String,
-    cnpjFornecedor: String,
-    precoTotal: number,
-    produtos: ProdutoEntrada[],
-    colaborador: Usuario,
-  ) {
-    this._id = id || null;
-    this._cupomFiscal = cupomFiscal;
-    this._produtos = produtos;
-    this._data = data;
-    this._nomeFornecedor = nomeFornecedor;
-    this._cnpjFornecedor = cnpjFornecedor;
-    this._precoTotal = precoTotal;
-    this._colaborador = colaborador;
+  constructor(entrada: IEntrada) {
+    this._id = entrada.id || null;
+    this._cupomFiscal = entrada.cupomFiscal;
+    this._produtos = entrada.produtos;
+    this._data = entrada.data;
+    this._nomeFornecedor = entrada.nomeFornecedor;
+    this._cnpjFornecedor = entrada.cnpjFornecedor;
+    this._precoTotal = entrada.precoTotal;
+    this._colaborador = entrada.colaborador;
   }
 
   getId = (): number | null => this._id;

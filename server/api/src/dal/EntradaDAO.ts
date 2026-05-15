@@ -2,7 +2,7 @@ import { pool } from "../database/connection.js";
 import Entrada from "../class/Entrada.js";
 
 export default class EntradaDAO {
-  Registrar = async (newEntry: Entrada, userId: number) => {
+  Registrar = async (newEntry: Entrada) => {
     try {
       await pool.query(
         "INSERT INTO entrada VALUES (default, $1, $2, $3, $4, $5, $6)",
@@ -12,7 +12,7 @@ export default class EntradaDAO {
           newEntry.getCnpjFornecedor(),
           newEntry.getPrecoTotal(),
           newEntry.getData(),
-          userId,
+          newEntry.getColaborador().getId(),
         ],
       );
       const entryId = await pool.query(

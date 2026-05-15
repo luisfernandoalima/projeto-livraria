@@ -1,59 +1,99 @@
 import type { Request, Response } from "express";
+
+import Entrada from "../class/Entrada.js";
+import Usuario from "../class/Usuario.js";
+import ProdutoEntrada from "../class/ProdutoEntrada.js";
+import Produto from "../class/Produto.js";
+
 import EntradaDAO from "../dal/EntradaDAO.js";
 import ProdutoEntradaDAO from "../dal/ProdutoEntradaDAO.js";
-import Entrada from "../class/Entrada.js";
+import UsuarioDAO from "../dal/UsuarioDAO.js";
+import { ProdutoDAO } from "../dal/ProdutoDAO.js";
+
+import type IUsuario from "../types/Usuario.js";
 
 import calcularPrecoTotal from "../utils/calcularPrecoTotal.js";
+import type { IEntrada } from "../types/IEntrada.js";
+import validarTipoPagamento from "../utils/validarTipoPagamento.js";
 export default class EntradaController {
   private dao = new EntradaDAO();
 
   Registrar = async (req: Request, res: Response) => {
-    const produtoEntradaDAO = new ProdutoEntradaDAO();
-
-    const user = (req as any).user;
-
-    const { cupomFiscal, data, nomeFornecedor, cnpjFornecedor, produtos } =
-      req.body;
-
-    const valorTotal = calcularPrecoTotal(produtos);
-
-    const newEntry = new Entrada(
-      null,
-      cupomFiscal,
-      new Date(data),
-      nomeFornecedor,
-      cnpjFornecedor,
-      valorTotal,
-      produtos,
-      user.id,
-    );
-
     try {
-      const entradaID = await this.dao.Registrar(newEntry, user.id);
+      const produtoDAO = new ProdutoDAO();
+      const produtoSaidaDAO = new ProdutoEntradaDAO();
+      const usuarioDAO = new UsuarioDAO();
 
-      if (!entradaID) {
+      const userInfo = (req as any).user;
+      const userResult: IUsuario = await usuarioDAO.Read(userInfo.id);
+
+      const user = new Usuario(userResult);
+
+      const produtos: ProdutoEntrada[] = [];
+
+      for (const item of req.body.produtos) {
+        const produtoBanco = await produtoDAO.Consultar(item.produto_id);
+
+        if (!produtoBanco) {
+          return res.status(404).json({
+            message: "Produto não encontrado",
+          });
+        }
+
+        const produto = new Produto(produtoBanco);
+
+        const produtoEntreda = new ProdutoEntrada(produto, item.quantidade);
+
+        produtos.push(produtoEntreda);
+      }
+
+      const entrada: IEntrada = {
+        id: null,
+        cupomFiscal: req.body.cupomFiscal,
+        data: req.body.data,
+        nomeFornecedor: req.body.fornecedor,
+        cnpjFornecedor: req.body.cnpjFornecedor,
+        produtos,
+        precoTotal: 0,
+        colaborador: user,
+      };
+
+      const novaEntrada = new Entrada(entrada);
+
+      console.log(novaEntrada);
+
+      const precoTotal = calcularPrecoTotal(novaEntrada.getProdutos());
+
+      novaEntrada.setPrecoTotal(precoTotal);
+
+      const entradaId = await this.dao.Registrar(novaEntrada);
+
+      if (!entradaId) {
         return res.status(400).json({
           message: "Erro ao registrar entrada",
           type: "error",
         });
       }
 
-      for (let i = 0; i < produtos.length; i++) {
-        await produtoEntradaDAO.Registrar(
-          entradaID,
-          produtos[i].produto.getId(),
-          produtos[i].quantidade,
-          produtos[i].quantidade * produtos[i].produto.getPreco(),
+      console.log(entradaId);
+
+      for (const item of novaEntrada.getProdutos()) {
+        await produtoSaidaDAO.Registrar(
+          entradaId.id,
+          item.getProduto().getId(),
+          item.getQuantidade(),
+          item.getPrecoItens(),
         );
       }
 
       res.json({
-        message: "Entrada registrada com sucesso",
+        message: "Saída registrada com sucesso",
         type: "success",
       });
     } catch (err) {
+      console.log(err);
       res.json({
-        message: `Erro ao registrar entrada: ${err}`,
+        message: `Erro ao registrar saída: ${err}`,
         type: "error",
       });
     }
