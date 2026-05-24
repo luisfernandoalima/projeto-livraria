@@ -31,11 +31,14 @@ export default class SaidaDAO {
     }
   };
 
-  Consultar = async (cupomFiscal: number) => {
+  Consultar = async (cupomFiscal: string) => {
     try {
-      await pool.query("SELECT * FROM saida WHERE cupom_fiscal=$1", [
-        cupomFiscal,
-      ]);
+      const result = await pool.query(
+        "SELECT u.id, u.nome, u.email, s.id AS id_saida, s.data_saida, p.id AS id_produto, p.titulo, sp.quantidade_item FROM saida s INNER JOIN usuario u ON s.id_usuario = u.id INNER JOIN produto_saida sp ON s.id = sp.id_saida INNER JOIN produto p ON sp.id_produto = p.id WHERE s.cupom_fiscal = $1;",
+        [cupomFiscal],
+      );
+
+      return result.rows;
     } catch (err) {
       console.error(`Erro ao buscar saida: ${err}`);
       return false;

@@ -91,7 +91,14 @@ export class ProdutoDAO {
     }
   };
 
-  salvarEstoque = (id: number): boolean => {
-    return true;
+  salvarEstoque = async (id: number | null, novaQuantidade: number) => {
+    try {
+      await pool.query("UPDATE produto SET estoque = $1 WHERE id = $2", [
+        novaQuantidade,
+        id,
+      ]);
+    } catch (err) {
+      console.error(err);
+    }
   };
 }

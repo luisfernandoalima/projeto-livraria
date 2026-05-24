@@ -29,7 +29,7 @@ export default class EntradaDAO {
 
   Consultar = async (cupomFiscal: number) => {
     try {
-      await pool.query("SELECT * FROM entrada WHERE cupom_fiscal=$1", [
+      await pool.query("SELECT id FROM entrada WHERE cupom_fiscal=$1", [
         cupomFiscal,
       ]);
     } catch (err) {

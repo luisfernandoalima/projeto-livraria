@@ -37,7 +37,7 @@ route.put("/product/save/:id", authValidate, produtoController.salvarEstoque);
 
 route.post("/entry/register", authValidate, entradaController.Registrar);
 route.get(
-  "/entry/find-registration/:id",
+  "/entry/find-registration/:cupom",
   authValidate,
   entradaController.Consultar,
 );
@@ -45,7 +45,7 @@ route.get("/entry/list-registration", authValidate, entradaController.Listar);
 
 route.post("/outgoing/register", authValidate, saidaController.Registrar);
 route.get(
-  "/outgoing/find-registration/:id",
+  "/outgoing/find-registration/:cupom",
   authValidate,
   saidaController.Consultar,
 );

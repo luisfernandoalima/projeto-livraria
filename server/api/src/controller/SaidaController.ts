@@ -1,18 +1,18 @@
 import type { Request, Response } from "express";
 import Saida from "../class/Saida.js";
-import SaidaDAO from "../dal/SaidaDAO.js";
 import ProdutoSaidaDAO from "../dal/ProdutoSaidaDAO.js";
+import SaidaDAO from "../dal/SaidaDAO.js";
+import type { ISaida } from "../types/ISaida.js";
 
 import validarTipoPagamento from "../utils/validarTipoPagamento.js";
 import calcularPrecoTotal from "../utils/calcularPrecoTotal.js";
-import type { ISaida } from "../types/ISaida.js";
 
-import UsuarioDAO from "../dal/UsuarioDAO.js";
 import Usuario from "../class/Usuario.js";
+import UsuarioDAO from "../dal/UsuarioDAO.js";
 import type IUsuario from "../types/Usuario.js";
-import { ProdutoDAO } from "../dal/ProdutoDAO.js";
 import ProdutoSaida from "../class/ProdutoSaida.js";
 import Produto from "../class/Produto.js";
+import { ProdutoDAO } from "../dal/ProdutoDAO.js";
 
 export default class SaidaController {
   private dao = new SaidaDAO();
@@ -90,6 +90,11 @@ export default class SaidaController {
           item.getQuantidade(),
           item.getPrecoItens(),
         );
+
+        await produtoDAO.salvarEstoque(
+          item.getProduto().getId(),
+          item.getProduto().getEstoque() - item.getQuantidade(),
+        );
       }
 
       res.json({
@@ -111,10 +116,10 @@ export default class SaidaController {
   };
 
   Consultar = async (req: Request, res: Response) => {
-    const cupomFiscal = Number(req.params.cupom);
+    const cupomFiscal = String(req.params.cupom);
 
     const result = await this.dao.Consultar(cupomFiscal);
-
+    console.log(result);
     if (!result) {
       return res.status(400).json({
         message: "Erro ao buscar saídas",

@@ -14,7 +14,6 @@ import type IUsuario from "../types/Usuario.js";
 
 import calcularPrecoTotal from "../utils/calcularPrecoTotal.js";
 import type { IEntrada } from "../types/IEntrada.js";
-import validarTipoPagamento from "../utils/validarTipoPagamento.js";
 export default class EntradaController {
   private dao = new EntradaDAO();
 
@@ -84,16 +83,21 @@ export default class EntradaController {
           item.getQuantidade(),
           item.getPrecoItens(),
         );
+
+        await produtoDAO.salvarEstoque(
+          item.getProduto().getId(),
+          item.getProduto().getEstoque() + item.getQuantidade(),
+        );
       }
 
       res.json({
-        message: "Saída registrada com sucesso",
+        message: "Entrada registrada com sucesso",
         type: "success",
       });
     } catch (err) {
       console.log(err);
       res.json({
-        message: `Erro ao registrar saída: ${err}`,
+        message: `Erro ao registrar entrada: ${err}`,
         type: "error",
       });
     }
@@ -109,6 +113,8 @@ export default class EntradaController {
     const cupomFiscal = Number(req.params.cupom);
 
     const result = await this.dao.Consultar(cupomFiscal);
+
+    console.log(result);
 
     if (!result) {
       return res.status(400).json({
