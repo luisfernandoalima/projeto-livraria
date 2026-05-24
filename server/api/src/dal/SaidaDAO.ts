@@ -34,7 +34,7 @@ export default class SaidaDAO {
   Consultar = async (cupomFiscal: string) => {
     try {
       const result = await pool.query(
-        "SELECT u.id, u.nome, u.email, s.id AS id_saida, s.data_saida, p.id AS id_produto, p.titulo, sp.quantidade_item FROM saida s INNER JOIN usuario u ON s.id_usuario = u.id INNER JOIN produto_saida sp ON s.id = sp.id_saida INNER JOIN produto p ON sp.id_produto = p.id WHERE s.cupom_fiscal = $1;",
+        "SELECT u.id, u.nome, u.email, s.id AS id_saida, s.data_saida, s.preco_total, p.id AS id_produto, p.titulo, sp.quantidade_item, sp.valor_itens FROM saida s INNER JOIN usuario u ON s.id_usuario = u.id INNER JOIN produto_saida sp ON s.id = sp.id_saida INNER JOIN produto p ON sp.id_produto = p.id WHERE s.cupom_fiscal = $1;",
         [cupomFiscal],
       );
 
