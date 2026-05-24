@@ -17,6 +17,7 @@ defineProps({
         >
 
         <span class="product-id"> Produto #{{ produto.id_produto }} </span>
+        <span class="product-id"> Valor: R${{ produto.valor_itens }} </span>
       </div>
 
       <div class="quantity">{{ produto.quantidade_item }}x</div>
@@ -53,7 +54,7 @@ defineProps({
 }
 
 .product-id {
-  display: inline-block;
+  display: block;
   margin-top: 8px;
   color: #6b7280;
   font-size: 13px;

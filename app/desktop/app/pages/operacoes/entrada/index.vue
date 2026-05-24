@@ -51,7 +51,9 @@ console.log(response);
             <td class="border border-gray-300">{{ value.cnpj_fornecedor }}</td>
             <td class="border border-gray-300">{{ value.nome_fornecedor }}</td>
             <td class="border border-gray-300">
-              <NuxtLink class="flex justify-center"
+              <NuxtLink
+                class="flex justify-center"
+                :to="`/operacoes/entrada/${value.cupom_fiscal}`"
                 ><Icon icon="mdi:eye" width="24" height="24"
               /></NuxtLink>
             </td>

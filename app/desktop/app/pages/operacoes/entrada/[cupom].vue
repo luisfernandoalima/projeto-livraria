@@ -12,19 +12,19 @@ const cupom = router.params.cupom;
 
 const token = useCookie("auth_token");
 
-const response = await api(`/outgoing/find-registration/${cupom}`, {
+const response = await api(`/entry/find-registration/${cupom}`, {
   method: "GET",
   headers: {
     authorization: `Bearer ${token.value}`,
   },
 });
 
-const saida = computed(() => ({
-  id_saida: response[0]?.id_saida,
+const entrada = computed(() => ({
+  id_entrada: response[0]?.id_entrada,
   nome: response[0]?.nome,
   email: response[0]?.email,
-  data_saida: response[0]?.data_saida,
-  valor_total: response[0]?.preco_total,
+  data_entrada: response[0]?.data_entrada,
+  valor_total: response[0]?.valor_total,
 }));
 
 const produtos = computed(() =>
@@ -44,37 +44,35 @@ const quantidadeTotal = computed(() =>
 <template>
   <NuxtLayout>
     <div class="page">
-      <!-- Cabeçalho -->
       <div class="header">
         <div class="text-white">
-          <h1>Detalhes da saída</h1>
+          <h1>Detalhes da entrada</h1>
           <p class="subtitle">Informações da movimentação de estoque</p>
         </div>
 
         <div class="badge">Cupom #{{ cupom }}</div>
       </div>
 
-      <!-- Informações da saída -->
       <section class="info-card">
         <div class="info-grid">
           <div class="info-item">
-            <span class="label">ID da saída</span>
-            <strong>#{{ saida.id_saida }}</strong>
+            <span class="label">ID da entrada</span>
+            <strong>#{{ entrada.id_entrada }}</strong>
           </div>
 
           <div class="info-item">
             <span class="label">Responsável</span>
-            <strong>{{ saida.nome }}</strong>
+            <strong>{{ entrada.nome }}</strong>
           </div>
 
           <div class="info-item">
             <span class="label">Email</span>
-            <strong>{{ saida.email }}</strong>
+            <strong>{{ entrada.email }}</strong>
           </div>
 
           <div class="info-item">
-            <span class="label">Data da saída</span>
-            <strong>{{ formatDate(saida.data_saida) }}</strong>
+            <span class="label">Data da entrada</span>
+            <strong>{{ formatDate(entrada.data_entrada) }}</strong>
           </div>
 
           <div class="info-item">
@@ -88,7 +86,7 @@ const quantidadeTotal = computed(() =>
           </div>
           <div class="info-item">
             <span class="label">Valor total</span>
-            <strong>R$ {{ saida.valor_total }}</strong>
+            <strong>R$ {{ entrada.valor_total }}</strong>
           </div>
         </div>
       </section>
