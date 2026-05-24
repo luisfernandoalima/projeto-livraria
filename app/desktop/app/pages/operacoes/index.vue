@@ -1,7 +1,4 @@
 <script setup>
-import SearchBar from "~/components/layout/SearchBar.vue";
-import { Icon } from "@iconify/vue";
-
 definePageMeta({
   layout: "default",
   middleware: "auth",
@@ -10,11 +7,29 @@ definePageMeta({
 
 <template>
   <NuxtLayout>
-    <div>
+    <div class="operation_option_div">
       <NuxtLink to="/operacoes/entrada">Entradas</NuxtLink>
       <NuxtLink to="/operacoes/saida">Saídas</NuxtLink>
     </div>
   </NuxtLayout>
 </template>
 
-<style scoped></style>
+<style scoped>
+.operation_option_div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 50px;
+  height: 100%;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    width: 30%;
+    height: 60%;
+    border-radius: 15px;
+  }
+}
+</style>

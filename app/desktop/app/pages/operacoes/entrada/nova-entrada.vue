@@ -1,6 +1,6 @@
 <script setup>
 import CommonInput from "~/components/ui/forms/CommonInput.vue";
-import ItemOperationCard from "~/components/layout/ItemOperationCard.vue";
+import ItemEntryOperationCard from "~/components/layout/ItemEntryOperationCard.vue";
 import { Icon } from "@iconify/vue";
 
 definePageMeta({
@@ -14,12 +14,13 @@ const token = useCookie("auth_token");
 
 const carrinho = ref([]);
 const idBuscado = ref();
-const venda = ref({
+
+const entrada = ref({
   cupomFiscal: "",
   data: "",
-  cliente: "",
-  cpfCliente: "",
-  tipoPagamento: "",
+  fornecedor: "",
+  cnpjFornecedor: "",
+  valorTotal: 0,
 });
 
 const buscarProduto = async (id) => {
@@ -54,10 +55,10 @@ const removerItem = (id) => {
   carrinho.value = carrinho.value.filter((item) => item.produto.id !== id);
 };
 
-const finalizarVenda = async () => {
+const finalizarEntrada = async () => {
   try {
     const payload = {
-      ...venda.value,
+      ...entrada.value,
 
       produtos: carrinho.value.map((item) => ({
         produto_id: item.produto.id,
@@ -65,13 +66,15 @@ const finalizarVenda = async () => {
       })),
     };
 
-    const response = await api("/outgoing/register", {
+    const response = await api("/entry/register", {
       method: "POST",
       headers: {
         authorization: `Bearer ${token.value}`,
       },
       body: payload,
     });
+
+    console.log(response);
 
     toast.success("Venda criada!");
   } catch (err) {
@@ -87,30 +90,23 @@ const finalizarVenda = async () => {
         text="Cupom Fiscal"
         name="cupomFiscal"
         type="text"
-        v-model="venda.cupomFiscal"
+        v-model="entrada.cupomFiscal"
       />
 
-      <CommonInput text="Data" name="data" type="date" v-model="venda.data" />
+      <CommonInput text="Data" name="data" type="date" v-model="entrada.data" />
 
       <CommonInput
-        text="Cliente"
+        text="Fornecedor"
         name="cliente"
         type="text"
-        v-model="venda.cliente"
+        v-model="entrada.fornecedor"
       />
 
       <CommonInput
-        text="CPF"
-        name="cpfCliente"
+        text="CNPJ do Fornecedor"
+        name="cnpjFornecedor"
         type="text"
-        v-model="venda.cpfCliente"
-      />
-
-      <CommonInput
-        text="Forma de pagamento"
-        name="tipoPagamento"
-        type="text"
-        v-model="venda.tipoPagamento"
+        v-model="entrada.cnpjFornecedor"
       />
     </div>
     <hr />
@@ -129,14 +125,14 @@ const finalizarVenda = async () => {
     <hr />
 
     <div class="flex flex-col gap-4">
-      <ItemOperationCard
+      <ItemEntryOperationCard
         v-for="item in carrinho"
         :key="item.produto.id"
         :item="item"
         @remover="removerItem"
       />
     </div>
-    <button @click="finalizarVenda()">Salvar</button>
+    <button @click="finalizarEntrada()">Salvar</button>
   </NuxtLayout>
 </template>
 

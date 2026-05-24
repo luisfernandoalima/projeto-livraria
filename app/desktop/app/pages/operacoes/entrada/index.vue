@@ -24,7 +24,7 @@ console.log(response);
     <SearchBar />
 
     <div class="button_area">
-      <NuxtLink to="/operacoes/saida/nova-saida"
+      <NuxtLink to="/operacoes/entrada/nova-entrada"
         >+ Cadastrar nova entrada</NuxtLink
       >
     </div>

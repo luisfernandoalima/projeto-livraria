@@ -36,13 +36,14 @@ const produto = data.produto;
       />
       <div>
         <div>
-          <h1 class="text-6xl mb-4">{{ produto.titulo }}</h1>
-          <h2 class="text-4xl">{{ produto.autor }}</h2>
-          <p class="text-2xl">{{ produto.genero }}</p>
+          <h1 class="text-4xl mb-4">{{ produto.titulo }}</h1>
+          <h2 class="text-2xl">Autor: {{ produto.autor }}</h2>
+          <p class="text-2xl mt-2 mb-2">Gênero: {{ produto.genero }}</p>
         </div>
         <div>
           <p class="text-4xl">Valor:</p>
           <p class="text-6xl">R${{ produto.preco }}</p>
+          <p class="text-2xl">Quantidade em estoque: {{ produto.estoque }}</p>
         </div>
       </div>
     </div>

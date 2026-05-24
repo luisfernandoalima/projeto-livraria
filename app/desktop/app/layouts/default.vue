@@ -7,8 +7,7 @@ import { Icon } from "@iconify/vue";
     <header class="flex items-center justify-start gap-10 flex-col">
       <div>
         <NuxtLink to="/" class="flex justify-center items-center">
-          <img src="/img/tsuru-logo.jpeg" alt="Tsuru" />
-          <h1>TSURU</h1>
+          <img src="/img/tsuru-small.png" alt="Tsuru" />
         </NuxtLink>
       </div>
       <nav>
@@ -21,7 +20,9 @@ import { Icon } from "@iconify/vue";
             >
           </li>
           <li>
-            <NuxtLink to=""><Icon icon="lucide:circle-user" />Perfil</NuxtLink>
+            <NuxtLink to="/perfil"
+              ><Icon icon="lucide:circle-user" />Perfil</NuxtLink
+            >
           </li>
           <li>
             <NuxtLink to="/estoque">
@@ -52,12 +53,12 @@ import { Icon } from "@iconify/vue";
   flex: 1;
   display: grid;
   grid-template-columns: 15% 85%;
-  background-color: #5b0606;
+  background-color: #e3dde2;
 }
 
 header {
   padding: 0.3em;
-  box-shadow: 0px 5px 10px #00000073;
+  box-shadow: 5px 5px 10px #00000075;
   border-radius: 0px 15px 15px 0px;
   background-color: #fff;
 }
@@ -107,7 +108,6 @@ nav {
 }
 
 main {
-  background-color: #5b0606;
   padding: 15px 50px;
 }
 </style>
