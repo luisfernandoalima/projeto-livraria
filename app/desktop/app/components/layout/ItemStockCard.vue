@@ -16,7 +16,9 @@ defineProps({
     <p class="mt-1 mb-1">{{ name }}</p>
     <div class="button_area w-full flex items-center justify-between">
       <button>
-        <NuxtLink><Icon icon="jam:write-f" width="24" height="24" /></NuxtLink>
+        <NuxtLink :to="`/estoque/atualizar/${id}`"
+          ><Icon icon="jam:write-f" width="24" height="24"
+        /></NuxtLink>
       </button>
       <button>
         <NuxtLink :to="`/estoque/excluir/${id}`"
