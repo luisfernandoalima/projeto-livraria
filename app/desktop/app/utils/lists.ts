@@ -6,7 +6,7 @@ export const ClassificaçãoIndicativa = [
   },
 ];
 
-const generos = [
+export const generos = [
   {
     id: 1,
     text: "Aventura",
@@ -14,5 +14,16 @@ const generos = [
   {
     id: 2,
     text: "Terror",
+  },
+];
+
+export const cargos = [
+  {
+    id: 1,
+    text: "Administrador",
+  },
+  {
+    id: 2,
+    text: "Colaborador",
   },
 ];

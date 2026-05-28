@@ -1,14 +1,14 @@
 <script setup>
-import { defineProps } from "vue";
-
 defineProps({
   text: String,
   name: String,
+
   options: {
     type: Array,
     required: true,
   },
-  modelValue: String,
+
+  modelValue: [String, Number],
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -16,14 +16,18 @@ const emit = defineEmits(["update:modelValue"]);
 
 <template>
   <div>
-    <label :for="name">{{ text }}</label>
+    <label :for="name">
+      {{ text }}
+    </label>
+
     <select
       :name="name"
       :id="name"
-      :model-value="modelValue"
+      :value="modelValue"
       @change="emit('update:modelValue', $event.target.value)"
     >
       <option value="">Escolha uma opção</option>
+
       <option v-for="option in options" :key="option.id" :value="option.id">
         {{ option.text }}
       </option>

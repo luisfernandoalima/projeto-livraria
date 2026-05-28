@@ -53,7 +53,7 @@ import { Icon } from "@iconify/vue";
   flex: 1;
   display: grid;
   grid-template-columns: 15% 85%;
-  background-color: #e3dde2;
+  background-color: #5b0606;
 }
 
 header {

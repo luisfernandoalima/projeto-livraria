@@ -50,7 +50,9 @@ console.log(response);
             <td class="border border-gray-300">{{ value.email }}</td>
             <td class="border border-gray-300">{{ value.telefone }}</td>
             <td class="border border-gray-300">
-              <NuxtLink class="flex justify-center"
+              <NuxtLink
+                class="flex justify-center"
+                :to="`/colaborador/atualizar/${value.id}`"
                 ><Icon icon="jam:write-f" width="24" height="24"
               /></NuxtLink>
             </td>
