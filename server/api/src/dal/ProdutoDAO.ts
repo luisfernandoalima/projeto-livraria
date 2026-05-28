@@ -33,8 +33,8 @@ export class ProdutoDAO {
   Alterar = async (produto: Produto) => {
     try {
       await pool.query(
-        `UPDATE produto SET titulo = $1, subtitulo = $2, sinopse = $3, autor = $4, serie = $5, volume = $6, isbn13 = $7, formato = $8, numero_paginas = $9, idioma = $10,
- data_publicacao = $11, genero = $12, classificacao_indicativa = $13, preco = $14, estoque = $15, status = $16, imagem_capa = $17 WHERE id = $18`,
+        `UPDATE produto SET titulo = $1, autor = $2, serie = $3, volume = $4, isbn13 = $5, numero_paginas = $6, idioma = $7,
+ data_publicacao = $8, genero = $9, classificacao_indicativa = $10, preco = $11, estoque = $12, imagem_capa = $13 WHERE id = $14`,
         [
           produto.getTitulo(),
           produto.getAutor(),

@@ -56,7 +56,9 @@ export default class ProdutoController {
   Read = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    const produto = await this.dao.Consultar(Number(id));
+    const produtoBD = await this.dao.Consultar(Number(id));
+
+    const produto = new Produto(produtoBD);
 
     if (!produto) {
       return res
@@ -69,11 +71,11 @@ export default class ProdutoController {
 
   Update = async (req: Request, res: Response) => {
     try {
-      const file = req.file;
-
       const id = Number(req.params.id);
 
-      const produtoExistente = await this.dao.Consultar(id);
+      console.log(req.body);
+
+      const produtoExistente = new Produto(await this.dao.Consultar(id));
 
       if (!produtoExistente) {
         return res.status(404).json({
@@ -82,44 +84,8 @@ export default class ProdutoController {
         });
       }
 
-      const {
-        titulo,
-        subtitulo,
-        sinopse,
-        autor,
-        serie,
-        volume,
-        isbn13,
-        formato,
-        numPaginas,
-        idioma,
-        dataPublicacao,
-        genero,
-        classIndicativa,
-        preco,
-        estoque,
-        status,
-      } = req.body;
-
-      let imgCapa = produtoExistente.imgCapa;
-
-      if (file) {
-        imgCapa = `/uploads/${file.filename}`;
-
-        if (produtoExistente.imgCapa) {
-          const oldPath = path.resolve(
-            "uploads",
-            produtoExistente.imgCapa.split("/uploads/")[1],
-          );
-
-          if (fs.existsSync(oldPath)) {
-            fs.unlinkSync(oldPath);
-          }
-        }
-      }
-
       const data: IProduto = {
-        id: req.body.id,
+        id: id,
         titulo: req.body.titulo,
         autor: req.body.autor,
         serie: req.body.serie,
@@ -132,7 +98,7 @@ export default class ProdutoController {
         classificacao_indicativa: req.body.classIndicativa,
         preco: Number(req.body.preco),
         estoque: 0,
-        imagem_capa: imgCapa,
+        imagem_capa: produtoExistente.getImgCapa(),
       };
 
       const updatedData = new Produto(data);
@@ -149,6 +115,7 @@ export default class ProdutoController {
         type: "success",
       });
     } catch (err) {
+      console.log(err);
       return res.status(500).json({
         message: `Erro no update: ${err}`,
         type: "error",
