@@ -36,7 +36,7 @@ export default class UsuarioDAO {
   Update = async (updatedUser: Usuario) => {
     try {
       await pool.query(
-        "UPDATE usuario SET nome = $1, email = $2, senha = $3, telefone = $4, cpf = $5, funcao = $6 WHERE id = $7",
+        "UPDATE usuario SET nome = $1, email = $2, senha = $3, telefone = $4, cpf = $5, id_cargo = $6 WHERE id = $7",
         [
           updatedUser.getNome(),
           updatedUser.getEmail(),

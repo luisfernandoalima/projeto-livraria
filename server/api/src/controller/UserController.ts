@@ -62,12 +62,12 @@ export default class UserController {
     if (!(await this.dao.Update(usuario))) {
       return res
         .status(400)
-        .json({ message: "Erro ao cadastrar usuário", type: "error" });
+        .json({ message: "Erro ao atualizar usuário", type: "error" });
     }
 
     return res
       .status(201)
-      .json({ message: "Usuário cadastrado!", type: "success" });
+      .json({ message: "Usuário atualizado!", type: "success" });
   };
 
   Delete = async (req: Request, res: Response) => {
