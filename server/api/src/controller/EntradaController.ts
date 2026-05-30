@@ -126,18 +126,23 @@ export default class EntradaController {
     res.json(result);
   };
 
-  consultarTudo = async (req: Request, res: Response) => {
-    const cupomFiscal = Number(req.params.cupom);
+  listarPorCupom = async (req: Request, res: Response) => {
+    try {
+      const cupom = Number(req.params.cupom);
+      const entradas = await this.dao.listarPorCupom(cupom);
 
-    const result = await this.dao.consultaCompleta(cupomFiscal);
+      if (!entradas) {
+        return res
+          .status(400)
+          .json({ message: "Erro ao buscar entradas", type: "error" });
+      }
 
-    if (!result) {
-      return res.status(400).json({
-        message: "Erro ao buscar entrada",
-        type: "error",
-      });
+      console.log(entradas);
+      return res.status(200).json({ entradas });
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao buscar entradas", type: "error" });
     }
-
-    res.json(result);
   };
 }

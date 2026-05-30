@@ -50,14 +50,15 @@ export default class EntradaDAO {
     }
   };
 
-  consultaCompleta = async (cupomFiscal: number) => {
+  listarPorCupom = async (cupomFiscal: number) => {
     try {
-      await pool.query(
-        "SELECT c.id, c.nome,  c.email, e.id AS entrada_id, e.data, p.id AS produto_id, p.titulo, ep.quantidade FROM entrada e INNER JOIN colaborador c ON e.colaborador_id = c.id INNER JOIN entrada_produto ep ON e.id = ep.entrada_id INNER JOIN produto p ON ep.produto_id = p.id WHERE e.cupom_fiscal = $1;",
-        [cupomFiscal],
+      const result = await pool.query(
+        "SELECT * FROM entrada WHERE cupom_fiscal ILIKE $1",
+        [`%${cupomFiscal}%`],
       );
+      return result.rows;
     } catch (err) {
-      console.error(`Erro ao cadastrar produto: ${err}`);
+      console.log(`Erro ao buscar entradas: ${err}`);
       return false;
     }
   };

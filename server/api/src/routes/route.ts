@@ -51,6 +51,11 @@ route.get(
   entradaController.Consultar,
 );
 route.get("/entry/list-registration", authValidate, entradaController.Listar);
+route.get(
+  "/entry/list-registration-cupom/:cupom",
+  authValidate,
+  entradaController.listarPorCupom,
+);
 
 route.post("/outgoing/register", authValidate, saidaController.Registrar);
 route.get(
@@ -59,5 +64,10 @@ route.get(
   saidaController.Consultar,
 );
 route.get("/outgoing/list-registration", authValidate, saidaController.Listar);
+route.get(
+  "/outgoing/list-registration-cupom/:cupom",
+  authValidate,
+  saidaController.listarPorCupom,
+);
 
 export default route;

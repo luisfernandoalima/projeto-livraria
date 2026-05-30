@@ -54,14 +54,15 @@ export default class SaidaDAO {
     }
   };
 
-  consultaCompleta = async (cupomFiscal: number) => {
+  listarPorCupom = async (cupomFiscal: number) => {
     try {
-      await pool.query(
-        "SELECT c.id, c.nome, c.email, s.id AS saida_id, s.data, p.id AS produto_id, p.titulo, sp.quantidade FROM saida s INNER JOIN colaborador c ON s.colaborador_id = c.id INNER JOIN saida_produto sp ON s.id = sp.saida_id INNER JOIN produto p ON sp.produto_id = p.id WHERE s.cupom_fiscal = $1;",
-        [cupomFiscal],
+      const result = await pool.query(
+        "SELECT * FROM saida WHERE cupom_fiscal ILIKE $1",
+        [`%${cupomFiscal}%`],
       );
+      return result.rows;
     } catch (err) {
-      console.error(`Erro ao cadastrar produto: ${err}`);
+      console.log(`Erro ao buscar saidas: ${err}`);
       return false;
     }
   };

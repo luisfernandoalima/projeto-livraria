@@ -110,16 +110,16 @@ export default class SaidaController {
     }
   };
   Listar = async (req: Request, res: Response) => {
-    const listaSaida = await this.dao.Listar();
+    const saidas = await this.dao.Listar();
 
-    res.json(listaSaida);
+    res.json({ saidas });
   };
 
   Consultar = async (req: Request, res: Response) => {
     const cupomFiscal = String(req.params.cupom);
 
     const result = await this.dao.Consultar(cupomFiscal);
-    console.log(result);
+
     if (!result) {
       return res.status(400).json({
         message: "Erro ao buscar saídas",
@@ -130,18 +130,22 @@ export default class SaidaController {
     res.json(result);
   };
 
-  consultarTudo = async (req: Request, res: Response) => {
-    const cupomFiscal = Number(req.params.cupom);
+  listarPorCupom = async (req: Request, res: Response) => {
+    try {
+      const cupom = Number(req.params.cupom);
+      const saidas = await this.dao.listarPorCupom(cupom);
 
-    const result = await this.dao.consultaCompleta(cupomFiscal);
+      if (!saidas) {
+        return res
+          .status(400)
+          .json({ message: "Erro ao buscar saidas", type: "error" });
+      }
 
-    if (!result) {
-      return res.status(400).json({
-        message: "Erro ao buscar entrada",
-        type: "error",
-      });
+      return res.status(200).json({ saidas });
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao buscar saidas", type: "error" });
     }
-
-    res.json(result);
   };
 }
