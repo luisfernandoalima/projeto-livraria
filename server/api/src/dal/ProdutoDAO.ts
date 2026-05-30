@@ -84,7 +84,9 @@ export class ProdutoDAO {
 
   Listar = async () => {
     try {
-      const produtos = await pool.query("SELECT * FROM produto");
+      const produtos = await pool.query(
+        "SELECT * FROM produto ORDER BY titulo",
+      );
       return produtos.rows;
     } catch (err) {
       console.log(`Erro ao buscar produtos: ${err}`);
@@ -94,7 +96,7 @@ export class ProdutoDAO {
   listarPorNome = async (titulo: string) => {
     try {
       const produtos = await pool.query(
-        "SELECT * FROM produto WHERE titulo ILIKE $1",
+        "SELECT * FROM produto WHERE titulo ILIKE $1 ORDER BY titulo",
         [`%${titulo}%`],
       );
       console.log(produtos.rows);
