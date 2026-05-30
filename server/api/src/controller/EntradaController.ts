@@ -104,9 +104,9 @@ export default class EntradaController {
   };
 
   Listar = async (req: Request, res: Response) => {
-    const listaEntrada = await this.dao.Listar();
+    const entradas = await this.dao.Listar();
 
-    res.json(listaEntrada);
+    res.json({ entradas });
   };
 
   Consultar = async (req: Request, res: Response) => {
