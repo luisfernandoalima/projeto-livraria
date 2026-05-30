@@ -2,7 +2,8 @@
 import CommonInput from "~/components/ui/forms/CommonInput.vue";
 import CommonSelect from "~/components/ui/forms/CommonSelect.vue";
 
-import { ClassificaçãoIndicativa } from "~/utils/lists";
+import { listClassificacoesIndicativas } from "~/utils/lists";
+import { listGeneros } from "~/utils/lists";
 
 import BackButton from "~/components/layout/BackButton.vue";
 
@@ -35,17 +36,6 @@ const imgCapa = ref(null);
 function onFileChange(event) {
   imgCapa.value = event.target.files[0];
 }
-
-const generos = [
-  {
-    id: 1,
-    text: "Aventura",
-  },
-  {
-    id: 2,
-    text: "Terror",
-  },
-];
 
 const createProduct = async () => {
   const formData = new FormData();
@@ -144,7 +134,7 @@ const createProduct = async () => {
           text="Genero"
           name="genero"
           v-model="genero"
-          :options="generos"
+          :options="listGeneros"
         />
         <CommonInput
           text="Preço"
@@ -157,7 +147,7 @@ const createProduct = async () => {
           text="Classificação Indicativa"
           name="classIndicativa"
           v-model="classIndicativa"
-          :options="ClassificaçãoIndicativa"
+          :options="listClassificacoesIndicativas"
         />
         <input type="file" name="imgCapa" id="imgCapa" @change="onFileChange" />
       </div>

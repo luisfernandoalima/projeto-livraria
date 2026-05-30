@@ -2,7 +2,9 @@
 import CommonInput from "~/components/ui/forms/CommonInput.vue";
 import CommonSelect from "~/components/ui/forms/CommonSelect.vue";
 
-import { ClassificaçãoIndicativa } from "~/utils/lists";
+import { listClassificacoesIndicativas } from "~/utils/lists";
+import { listGeneros } from "~/utils/lists";
+
 definePageMeta({
   layout: "default",
   middleware: "auth",
@@ -178,14 +180,14 @@ const updateProduct = async () => {
                 text="Genero"
                 name="genero"
                 v-model="genero"
-                :options="generos"
+                :options="listGeneros"
               />
 
               <CommonSelect
                 text="Classificação Indicativa"
                 name="classIndicativa"
                 v-model="classIndicativa"
-                :options="ClassificaçãoIndicativa"
+                :options="listClassificacoesIndicativas"
               />
 
               <CommonInput
