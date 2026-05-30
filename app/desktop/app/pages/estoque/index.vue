@@ -11,27 +11,65 @@ definePageMeta({
   layout: "default",
 });
 
+const route = useRoute();
+const router = useRouter();
+
 const api = useApi();
 const token = useCookie("auth_token");
 
-const response = await api("/product/list-products", {
-  method: "GET",
-  headers: {
-    authorization: `Bearer ${token.value}`,
-  },
-});
+const produto = ref(route.query.produto ?? "");
 
-const produtos = response.produtos;
+const produtos = ref([]);
+
+const buscarProduto = () => {
+  router.push(`/estoque?produto=${produto.value}`);
+};
+
+const carregarProdutos = async () => {
+  const tituloProduto = produto.value;
+
+  let response;
+
+  if (!tituloProduto) {
+    response = await api("/product/list-products", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    });
+  } else {
+    response = await api(`/product/list-by-name/${tituloProduto}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    });
+  }
+
+  produtos.value = response.produtos;
+};
+
+watch(
+  () => route.query.produto,
+  () => {
+    carregarProdutos();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <NuxtLayout>
-    <SearchBar></SearchBar>
+    <SearchBar
+      :handleForms="buscarProduto"
+      :value="produto"
+      @update:value="produto = $event"
+    ></SearchBar>
 
     <div class="main_area">
       <NuxtLink to="/estoque/novo-produto">
         <div class="new_product_container">
-          <Icon icon="ep:plus" width="1024" height="1024" />
+          <Icon icon="ep:plus" width="70" height="70" />
         </div>
         <p class="mt-1 mb-1 text-white font-bold text-center">Criar novo</p>
       </NuxtLink>

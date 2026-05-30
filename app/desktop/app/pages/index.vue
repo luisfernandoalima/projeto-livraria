@@ -2,30 +2,65 @@
 import SearchBar from "~/components/layout/SearchBar.vue";
 import ItemCard from "~/components/layout/ItemCard.vue";
 
-import { useApi } from "#imports";
-
 definePageMeta({
   middleware: "auth",
   layout: "default",
 });
 
+const route = useRoute();
+const router = useRouter();
+
 const api = useApi();
 const token = useCookie("auth_token");
 
-const response = await api("/product/list-products", {
-  method: "GET",
-  headers: {
-    authorization: `Bearer ${token.value}`,
-  },
-});
+const produto = ref(route.query.produto ?? "");
 
-const produtos = response.produtos;
-console.log(response);
+const produtos = ref([]);
+
+const buscarProduto = () => {
+  router.push(`/?produto=${produto.value}`);
+};
+
+const carregarProdutos = async () => {
+  const tituloProduto = produto.value;
+
+  let response;
+
+  if (!tituloProduto) {
+    response = await api("/product/list-products", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    });
+  } else {
+    response = await api(`/product/list-by-name/${tituloProduto}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    });
+  }
+
+  produtos.value = response.produtos;
+};
+
+watch(
+  () => route.query.produto,
+  () => {
+    carregarProdutos();
+  },
+  { immediate: true },
+);
 </script>
 
 <template>
   <NuxtLayout>
-    <SearchBar></SearchBar>
+    <SearchBar
+      :handleForms="buscarProduto"
+      :value="produto"
+      @update:value="produto = $event"
+    ></SearchBar>
 
     <div class="main_area">
       <ItemCard

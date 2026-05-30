@@ -26,6 +26,7 @@ const emit = defineEmits(["update:value"]);
         id="searchInput"
         name="seachBar"
         :placeholder="placeholder"
+        :value="value"
         @input="emit('update:value', $event.target.value)"
       />
     </label>
