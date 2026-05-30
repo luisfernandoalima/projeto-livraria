@@ -23,6 +23,8 @@ const data = await api(`/product/find-product/${id}`, {
 });
 
 const produto = data.produto;
+
+console.log(produto);
 </script>
 
 <template>
@@ -31,19 +33,19 @@ const produto = data.produto;
     <BackButton />
     <div class="product_main w-full">
       <img
-        :src="`http://localhost:8081${produto.imagem_capa}`"
+        :src="`http://localhost:8081${produto._imgCapa}`"
         :alt="data.titulo"
       />
       <div>
         <div>
-          <h1 class="text-4xl mb-4">{{ produto.titulo }}</h1>
-          <h2 class="text-2xl">Autor: {{ produto.autor }}</h2>
-          <p class="text-2xl mt-2 mb-2">Gênero: {{ produto.genero }}</p>
+          <h1 class="text-4xl mb-4">{{ produto._titulo }}</h1>
+          <h2 class="text-2xl">Autor: {{ produto._autor }}</h2>
+          <p class="text-2xl mt-2 mb-2">Gênero: {{ produto._genero }}</p>
         </div>
         <div>
           <p class="text-4xl">Valor:</p>
-          <p class="text-6xl">R${{ produto.preco }}</p>
-          <p class="text-2xl">Quantidade em estoque: {{ produto.estoque }}</p>
+          <p class="text-6xl">R${{ produto._preco }}</p>
+          <p class="text-2xl">Quantidade em estoque: {{ produto._estoque }}</p>
         </div>
       </div>
     </div>
@@ -55,13 +57,13 @@ const produto = data.produto;
           <tr>
             <td class="border border-gray-300 font-bold">ISBN</td>
             <td class="border border-gray-300">
-              {{ produto.isbn13 }}
+              {{ produto._isbn13 }}
             </td>
           </tr>
           <tr>
             <td class="border border-gray-300 font-bold">Idioma</td>
             <td class="border border-gray-300">
-              {{ produto.idioma }}
+              {{ produto._idioma }}
             </td>
           </tr>
           <tr>
@@ -69,31 +71,31 @@ const produto = data.produto;
               Classificação Indicativa
             </td>
             <td class="border border-gray-300">
-              {{ produto.classificacao_indicativa }}
+              {{ produto._classIndicativa }}
             </td>
           </tr>
           <tr>
             <td class="border border-gray-300 font-bold">Data de publicação</td>
             <td class="border border-gray-300">
-              {{ produto.data_publicacao }}
+              {{ formatDate(produto._dataPublicacao) }}
             </td>
           </tr>
           <tr>
             <td class="border border-gray-300 font-bold">Número de páginas</td>
             <td class="border border-gray-300">
-              {{ produto.numero_paginas }}
+              {{ produto._numPaginas }}
             </td>
           </tr>
           <tr>
             <td class="border border-gray-300 font-bold">Série</td>
             <td class="border border-gray-300">
-              {{ produto.serie }}
+              {{ produto._serie }}
             </td>
           </tr>
           <tr>
             <td class="border border-gray-300 font-bold">Volume</td>
             <td class="border border-gray-300">
-              {{ produto.volume }}
+              {{ produto._volume }}
             </td>
           </tr>
         </tbody>
