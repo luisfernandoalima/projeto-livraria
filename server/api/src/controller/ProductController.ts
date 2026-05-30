@@ -197,6 +197,30 @@ export default class ProdutoController {
     return res.status(200).json({ produtos });
   };
 
+  listByName = async (req: Request, res: Response) => {
+    const produtoTitulo = String(req.params.produto);
+
+    try {
+      const data = await this.dao.listarPorNome(produtoTitulo);
+
+      if (!data) {
+        return res
+          .status(400)
+          .json({ message: "Erro ao buscar produtos", type: "error" });
+      }
+      const produtos: Produto[] = [];
+
+      data.forEach((item) => {
+        produtos.push(new Produto(item));
+      });
+      return res.status(200).json({ produtos });
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: "Erro ao buscar produtos", type: "error" });
+    }
+  };
+
   salvarEstoque = (req: Request, res: Response): boolean => {
     return true;
   };

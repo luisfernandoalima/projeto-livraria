@@ -32,7 +32,16 @@ route.post(
 route.get("/product/find-product/:id", produtoController.Read);
 route.patch("/product/update/:id", authValidate, produtoController.Update);
 route.delete("/product/delete/:id", authValidate, produtoController.Delete);
-route.get("/product/list-products", produtoController.listProducts);
+route.get(
+  "/product/list-products",
+  authValidate,
+  produtoController.listProducts,
+);
+route.get(
+  "/product/list-by-name/:produto",
+  authValidate,
+  produtoController.listByName,
+);
 route.put("/product/save/:id", authValidate, produtoController.salvarEstoque);
 
 route.post("/entry/register", authValidate, entradaController.Registrar);
