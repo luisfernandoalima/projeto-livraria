@@ -7,21 +7,62 @@ definePageMeta({
   middleware: "auth",
 });
 
+const route = useRoute();
+const router = useRouter();
+
 const api = useApi();
 const token = useCookie("auth_token");
 
-const response = await api("/outgoing/list-registration", {
-  method: "GET",
-  headers: {
-    authorization: `Bearer ${token.value}`,
+const cupom = ref(route.query.cupom ?? "");
+
+const saidas = ref([]);
+
+const buscarSaidas = () => {
+  router.push(`/operacoes/saida?cupom=${cupom.value}`);
+};
+
+const carregaSaidas = async () => {
+  const cupomSaida = cupom.value;
+
+  let response;
+
+  if (!cupomSaida) {
+    response = await api("/outgoing/list-registration", {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    });
+  } else {
+    response = await api(`/outgoing/list-registration-cupom/${cupomSaida}`, {
+      method: "GET",
+      headers: {
+        authorization: `Bearer ${token.value}`,
+      },
+    });
+  }
+
+  saidas.value = response.saidas;
+  console.log(saidas.value);
+  console.log(saidas);
+};
+
+watch(
+  () => route.query.cupom,
+  () => {
+    carregaSaidas();
   },
-});
-console.log(response);
+  { immediate: true },
+);
 </script>
 
 <template>
   <NuxtLayout>
-    <SearchBar />
+    <SearchBar
+      :handleForms="buscarSaidas"
+      :value="cupom"
+      @update:value="cupom = $event"
+    />
 
     <div class="button_area">
       <NuxtLink to="/operacoes/saida/nova-saida"
@@ -43,7 +84,7 @@ console.log(response);
           </tr>
         </thead>
         <tbody>
-          <tr v-for="value in response">
+          <tr v-for="value in saidas">
             <td class="border border-gray-300">{{ value.cupom_fiscal }}</td>
             <td class="border border-gray-300">{{ value.data_saida }}</td>
             <td class="border border-gray-300">{{ value.preco_total }}</td>
