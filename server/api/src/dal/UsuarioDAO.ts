@@ -80,7 +80,19 @@ export default class UsuarioDAO {
 
   listUsers = async () => {
     try {
-      const result = await pool.query("SELECT * FROM usuario");
+      const result = await pool.query("SELECT * FROM usuario ORDER BY nome");
+      return result.rows;
+    } catch (err) {
+      console.error(`Erro ao buscar usuários: ${err}`);
+    }
+  };
+
+  listUsersByName = async (name: string) => {
+    try {
+      const result = await pool.query(
+        "SELECT * FROM usuario WHERE nome ILIKE $1 ORDER BY nome",
+        [`%${name}%`],
+      );
       return result.rows;
     } catch (err) {
       console.error(`Erro ao buscar usuários: ${err}`);

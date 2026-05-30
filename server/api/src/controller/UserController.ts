@@ -109,14 +109,43 @@ export default class UserController {
   };
 
   listUsers = async (req: Request, res: Response) => {
-    const user = await this.dao.listUsers();
+    const users = await this.dao.listUsers();
 
-    if (!user) {
+    if (!users) {
       return res
         .status(400)
         .json({ message: "Erro ao buscar usuário", type: "error" });
     }
 
-    return res.status(201).json(user);
+    return res.status(201).json({ users });
+  };
+
+  listUsersByName = async (req: Request, res: Response) => {
+    try {
+      const name = String(req.params.name);
+      console.log(name);
+
+      if (!name) {
+        return res
+          .status(400)
+          .json({ message: "Erro ao buscar usuários", type: "error" });
+      }
+
+      const users = await this.dao.listUsersByName(name);
+
+      console.log(users);
+
+      if (!users) {
+        return res
+          .status(400)
+          .json({ message: "Erro ao buscar usuário", type: "error" });
+      }
+
+      return res.status(201).json({ users });
+    } catch (err) {
+      return res
+        .status(400)
+        .json({ message: `Erro ao buscar usuário: ${err}`, type: "error" });
+    }
   };
 }

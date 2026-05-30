@@ -22,6 +22,11 @@ route.get("/user/find-user/:id", authValidate, userController.Read);
 route.patch("/user/update", authValidate, userController.Update);
 route.delete("/user/delete/:id", authValidate, userController.Delete);
 route.get("/user/list-users", authValidate, userController.listUsers);
+route.get(
+  "/user/list-by-name/:name",
+  authValidate,
+  userController.listUsersByName,
+);
 
 route.post(
   "/product/create",
