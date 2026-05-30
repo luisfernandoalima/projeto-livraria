@@ -1,4 +1,6 @@
 <script setup>
+import { Icon } from "@iconify/vue";
+
 defineProps({
   handleForms: Function,
   placeholder: String,
@@ -11,7 +13,14 @@ const emit = defineEmits(["update:value"]);
 <template>
   <form @submit.prevent="handleForms">
     <label for="searchInput">
-      <button>Buscar</button>
+      <button>
+        <Icon
+          icon="material-symbols:search"
+          width="35"
+          height="35"
+          style="color: #fff"
+        />
+      </button>
       <input
         type="text"
         id="searchInput"
