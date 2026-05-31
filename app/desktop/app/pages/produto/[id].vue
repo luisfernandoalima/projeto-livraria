@@ -8,11 +8,17 @@ definePageMeta({
   layout: "default",
 });
 
-import { useApi } from "#imports";
+const route = useRoute();
+const router = useRouter();
 
 const api = useApi();
-const route = useRoute();
 const token = useCookie("auth_token");
+
+const produtoBusca = ref("");
+const buscarProduto = () => {
+  router.push(`/?produto=${produtoBusca.value}`);
+};
+
 const id = route.params.id;
 
 const data = await api(`/product/find-product/${id}`, {
@@ -23,13 +29,15 @@ const data = await api(`/product/find-product/${id}`, {
 });
 
 const produto = data.produto;
-
-console.log(produto);
 </script>
 
 <template>
   <NuxtLayout>
-    <SearchBar />
+    <SearchBar
+      :handleForms="buscarProduto"
+      :value="produtoBusca"
+      @update:value="produtoBusca = $event"
+    />
     <BackButton />
     <div class="product_main w-full">
       <img

@@ -60,7 +60,7 @@ watch(
       :handleForms="buscarProduto"
       :value="produto"
       @update:value="produto = $event"
-    ></SearchBar>
+    />
 
     <div class="main_area">
       <ItemCard
