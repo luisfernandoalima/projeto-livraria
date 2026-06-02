@@ -1,5 +1,7 @@
 <script setup>
 import { Icon } from "@iconify/vue";
+
+const { user } = useAuth();
 </script>
 
 <template>
@@ -24,7 +26,7 @@ import { Icon } from "@iconify/vue";
               ><Icon icon="lucide:circle-user" />Perfil</NuxtLink
             >
           </li>
-          <li>
+          <li v-if="user?.funcao === 1">
             <NuxtLink to="/estoque">
               <Icon icon="fluent:box-24-regular" />Estoque</NuxtLink
             >
@@ -34,7 +36,7 @@ import { Icon } from "@iconify/vue";
               ><Icon icon="fluent:arrow-sort-16-filled" />Operações</NuxtLink
             >
           </li>
-          <li>
+          <li v-if="user?.funcao === 1">
             <NuxtLink to="/colaborador"
               ><Icon icon="ri:team-line" />Colaboradores</NuxtLink
             >

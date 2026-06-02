@@ -3,7 +3,7 @@ import SearchBar from "~/components/layout/SearchBar.vue";
 import { Icon } from "@iconify/vue";
 
 definePageMeta({
-  middleware: "auth",
+  middleware: "admin",
   layout: "default",
 });
 

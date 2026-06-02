@@ -7,7 +7,7 @@ import { listGeneros } from "~/utils/lists";
 
 definePageMeta({
   layout: "default",
-  middleware: "auth",
+  middleware: "admin",
 });
 
 const router = useRoute();

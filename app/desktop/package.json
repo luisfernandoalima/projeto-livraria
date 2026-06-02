@@ -13,6 +13,7 @@
   "dependencies": {
     "@iconify/vue": "^5.0.0",
     "@tailwindcss/vite": "^4.2.2",
+    "jwt-decode": "^4.0.0",
     "nuxt": "^4.4.2",
     "nuxt-toast": "^1.4.0",
     "tailwindcss": "^4.2.2",

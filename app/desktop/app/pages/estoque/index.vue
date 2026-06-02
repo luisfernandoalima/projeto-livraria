@@ -7,7 +7,7 @@ import { Icon } from "@iconify/vue";
 import { useApi } from "#imports";
 
 definePageMeta({
-  middleware: "auth",
+  middleware: "admin",
   layout: "default",
 });
 

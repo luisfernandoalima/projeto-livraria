@@ -7,7 +7,8 @@ import { useApi } from "~/composables/useApi";
 import { useToast } from "#imports";
 
 definePageMeta({
-  middleware: "auth",
+  middleware: "  middleware: "",
+",
   layout: "default",
 });
 
