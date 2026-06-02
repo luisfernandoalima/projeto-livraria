@@ -16,7 +16,7 @@ export default class UserController {
       senha: req.body.senha,
       telefone: req.body.telefone,
       cpf: req.body.cpf,
-      cargo: req.body.cargo,
+      id_cargo: req.body.cargo,
     };
 
     const usuario: Usuario = new Usuario(newUser);
@@ -54,7 +54,7 @@ export default class UserController {
       senha: req.body.senha,
       telefone: req.body.telefone,
       cpf: req.body.cpf,
-      cargo: req.body.cargo,
+      id_cargo: req.body.cargo,
     };
 
     const usuario: Usuario = new Usuario(user);
@@ -98,7 +98,11 @@ export default class UserController {
     const usuario: Usuario = new Usuario(user);
 
     const token = jwt.sign(
-      { id: usuario.getId(), email: usuario.getEmail() },
+      {
+        id: usuario.getId(),
+        email: usuario.getEmail(),
+        funcao: usuario.getCargo(),
+      },
       this.ACCESS_TOKEN!,
       {
         expiresIn: "1h",

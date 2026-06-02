@@ -8,7 +8,7 @@ export default class Usuario {
     this._senha = user.senha;
     this._telefone = user.telefone;
     this._cpf = user.cpf;
-    this._cargo = user.cargo;
+    this._cargo = user.id_cargo;
   }
 
   private _id: number | null;

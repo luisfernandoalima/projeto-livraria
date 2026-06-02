@@ -5,5 +5,5 @@ export default interface IUsuario {
   senha: string;
   telefone: string;
   cpf: string;
-  cargo: number;
+  id_cargo: number;
 }

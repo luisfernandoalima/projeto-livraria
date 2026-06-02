@@ -192,8 +192,6 @@ export default class ProdutoController {
       produtos.push(new Produto(item));
     });
 
-    console.log(produtos);
-
     return res.status(200).json({ produtos });
   };
 
