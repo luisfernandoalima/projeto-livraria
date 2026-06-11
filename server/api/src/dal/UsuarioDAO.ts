@@ -2,7 +2,7 @@ import { pool } from "../database/connection.js";
 import Usuario from "../class/Usuario.js";
 
 export default class UsuarioDAO {
-  Create = async (user: Usuario) => {
+  Criar = async (user: Usuario) => {
     try {
       await pool.query(
         "INSERT INTO usuario VALUES (default, $1, $2, $3, $4, $5, $6)",
@@ -22,7 +22,7 @@ export default class UsuarioDAO {
     }
   };
 
-  Read = async (id: number) => {
+  Consultar = async (id: number) => {
     try {
       const result = await pool.query("SELECT * FROM usuario WHERE id = $1", [
         id,
@@ -33,7 +33,7 @@ export default class UsuarioDAO {
     }
   };
 
-  Update = async (updatedUser: Usuario) => {
+  Alterar = async (updatedUser: Usuario) => {
     try {
       await pool.query(
         "UPDATE usuario SET nome = $1, email = $2, senha = $3, telefone = $4, cpf = $5, id_cargo = $6 WHERE id = $7",
@@ -54,7 +54,7 @@ export default class UsuarioDAO {
     }
   };
 
-  Delete = async (id: number) => {
+  Excluir = async (id: number) => {
     try {
       await pool.query("DELETE FROM usuario WHERE id = $1", [id]);
       return true;
@@ -78,7 +78,7 @@ export default class UsuarioDAO {
     }
   };
 
-  listUsers = async () => {
+  listarUsuarios = async () => {
     try {
       const result = await pool.query("SELECT * FROM usuario ORDER BY nome");
       return result.rows;
@@ -87,7 +87,7 @@ export default class UsuarioDAO {
     }
   };
 
-  listUsersByName = async (name: string) => {
+  listarUsuariosPorNome = async (name: string) => {
     try {
       const result = await pool.query(
         "SELECT * FROM usuario WHERE nome ILIKE $1 ORDER BY nome",

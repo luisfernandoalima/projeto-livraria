@@ -8,7 +8,7 @@ export default class UserController {
 
   private dao = new UsuarioDAO();
 
-  Create = async (req: Request, res: Response) => {
+  Criar = async (req: Request, res: Response) => {
     const newUser: IUsuario = {
       id: null,
       nome: req.body.nome,
@@ -21,7 +21,7 @@ export default class UserController {
 
     const usuario: Usuario = new Usuario(newUser);
 
-    if (!(await this.dao.Create(usuario))) {
+    if (!(await this.dao.Criar(usuario))) {
       return res
         .status(400)
         .json({ message: "Erro ao cadastrar usuário", type: "error" });
@@ -32,10 +32,10 @@ export default class UserController {
       .json({ message: "Usuário cadastrado!", type: "success" });
   };
 
-  Read = async (req: Request, res: Response) => {
+  Consultar = async (req: Request, res: Response) => {
     const id = Number(req.params.id);
 
-    const user = await this.dao.Read(id);
+    const user = await this.dao.Consultar(id);
 
     if (!user) {
       return res
@@ -46,7 +46,7 @@ export default class UserController {
     return res.status(200).json(user);
   };
 
-  Update = async (req: Request, res: Response) => {
+  Alterar = async (req: Request, res: Response) => {
     const user: IUsuario = {
       id: req.body.id,
       nome: req.body.nome,
@@ -59,7 +59,7 @@ export default class UserController {
 
     const usuario: Usuario = new Usuario(user);
 
-    if (!(await this.dao.Update(usuario))) {
+    if (!(await this.dao.Alterar(usuario))) {
       return res
         .status(400)
         .json({ message: "Erro ao atualizar usuário", type: "error" });
@@ -70,10 +70,10 @@ export default class UserController {
       .json({ message: "Usuário atualizado!", type: "success" });
   };
 
-  Delete = async (req: Request, res: Response) => {
+  Excluir = async (req: Request, res: Response) => {
     const { id } = req.params;
 
-    if (!(await this.dao.Delete(Number(id)))) {
+    if (!(await this.dao.Excluir(Number(id)))) {
       return res
         .status(400)
         .json({ message: "Erro ao excluir usuário", type: "error" });
@@ -112,8 +112,8 @@ export default class UserController {
     res.json({ token });
   };
 
-  listUsers = async (req: Request, res: Response) => {
-    const users = await this.dao.listUsers();
+  listarUsuarios = async (req: Request, res: Response) => {
+    const users = await this.dao.listarUsuarios();
 
     if (!users) {
       return res
@@ -124,7 +124,7 @@ export default class UserController {
     return res.status(201).json({ users });
   };
 
-  listUsersByName = async (req: Request, res: Response) => {
+  listarUsuariosPorNome = async (req: Request, res: Response) => {
     try {
       const name = String(req.params.name);
       console.log(name);
@@ -135,7 +135,7 @@ export default class UserController {
           .json({ message: "Erro ao buscar usuários", type: "error" });
       }
 
-      const users = await this.dao.listUsersByName(name);
+      const users = await this.dao.listarUsuariosPorNome(name);
 
       console.log(users);
 

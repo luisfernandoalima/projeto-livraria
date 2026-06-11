@@ -16,38 +16,37 @@ const produtoController = new ProdutoController();
 const entradaController = new EntradaController();
 const saidaController = new SaidaController();
 
-route.post("/user/sign-up", authValidate, userController.Create);
+route.post("/user/sign-up", authValidate, userController.Criar);
 route.post("/user/login", userController.Login);
-route.get("/user/find-user/:id", authValidate, userController.Read);
-route.patch("/user/update", authValidate, userController.Update);
-route.delete("/user/delete/:id", authValidate, userController.Delete);
-route.get("/user/list-users", authValidate, userController.listUsers);
+route.get("/user/find-user/:id", authValidate, userController.Consultar);
+route.patch("/user/update", authValidate, userController.Alterar);
+route.delete("/user/delete/:id", authValidate, userController.Excluir);
+route.get("/user/list-users", authValidate, userController.listarUsuarios);
 route.get(
   "/user/list-by-name/:name",
   authValidate,
-  userController.listUsersByName,
+  userController.listarUsuariosPorNome,
 );
 
 route.post(
   "/product/create",
   authValidate,
   createUpload(uuidv4()).single("imgCapa"),
-  produtoController.Create,
+  produtoController.Criar,
 );
-route.get("/product/find-product/:id", produtoController.Read);
-route.patch("/product/update/:id", authValidate, produtoController.Update);
-route.delete("/product/delete/:id", authValidate, produtoController.Delete);
+route.get("/product/find-product/:id", produtoController.Consultar);
+route.patch("/product/update/:id", authValidate, produtoController.Alterar);
+route.delete("/product/delete/:id", authValidate, produtoController.Excluir);
 route.get(
   "/product/list-products",
   authValidate,
-  produtoController.listProducts,
+  produtoController.listarProdutos,
 );
 route.get(
   "/product/list-by-name/:produto",
   authValidate,
-  produtoController.listByName,
+  produtoController.listarPorNome,
 );
-route.put("/product/save/:id", authValidate, produtoController.salvarEstoque);
 
 route.post("/entry/register", authValidate, entradaController.Registrar);
 route.get(

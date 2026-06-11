@@ -24,7 +24,7 @@ export default class EntradaController {
       const usuarioDAO = new UsuarioDAO();
 
       const userInfo = (req as any).user;
-      const userResult: IUsuario = await usuarioDAO.Read(userInfo.id);
+      const userResult: IUsuario = await usuarioDAO.Consultar(userInfo.id);
 
       const user = new Usuario(userResult);
 

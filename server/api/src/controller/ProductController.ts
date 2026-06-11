@@ -8,7 +8,7 @@ import type { IProduto } from "../types/TProduto.js";
 export default class ProdutoController {
   private dao = new ProdutoDAO();
 
-  Create = async (req: Request, res: Response) => {
+  Criar = async (req: Request, res: Response) => {
     console.log("REQ BODY:", req.body);
     console.log("REQ FILE:", req.file);
     try {
@@ -53,7 +53,7 @@ export default class ProdutoController {
     }
   };
 
-  Read = async (req: Request, res: Response) => {
+  Consultar = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const produtoBD = await this.dao.Consultar(Number(id));
@@ -69,7 +69,7 @@ export default class ProdutoController {
     return res.status(201).json({ produto });
   };
 
-  Update = async (req: Request, res: Response) => {
+  Alterar = async (req: Request, res: Response) => {
     try {
       const id = Number(req.params.id);
 
@@ -123,7 +123,7 @@ export default class ProdutoController {
     }
   };
 
-  Delete = async (req: Request, res: Response) => {
+  Excluir = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     try {
@@ -177,7 +177,7 @@ export default class ProdutoController {
     }
   };
 
-  listProducts = async (req: Request, res: Response) => {
+  listarProdutos = async (req: Request, res: Response) => {
     const data = await this.dao.Listar();
 
     if (!data) {
@@ -195,7 +195,7 @@ export default class ProdutoController {
     return res.status(200).json({ produtos });
   };
 
-  listByName = async (req: Request, res: Response) => {
+  listarPorNome = async (req: Request, res: Response) => {
     const produtoTitulo = String(req.params.produto);
 
     try {
@@ -217,9 +217,5 @@ export default class ProdutoController {
         .status(400)
         .json({ message: "Erro ao buscar produtos", type: "error" });
     }
-  };
-
-  salvarEstoque = (req: Request, res: Response): boolean => {
-    return true;
   };
 }
