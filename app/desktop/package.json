@@ -1,5 +1,9 @@
 {
   "name": "desktop",
+  "version": "1.0.0",
+  "description": "API desenvolvida para conectar o banco de dados com a interface do projeto Tsuru",
+  "license": "ISC",
+  "author": "Luis Fernando Alves de Lima",
   "type": "module",
   "private": true,
   "scripts": {
@@ -8,7 +12,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "tauri": "npx tauri dev"
+    "tauri:dev": "npx tauri dev",
+    "tauri:build": "npx tauri build"
   },
   "dependencies": {
     "@iconify/vue": "^5.0.0",
