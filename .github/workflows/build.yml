@@ -2,11 +2,11 @@ name: Build Tauri Windows
 
 on:
   push:
-    branches: [main] # dispara quando você fizer push na branch main
+    branches: [main]
 
 jobs:
   build-windows:
-    runs-on: windows-latest # GitHub usa uma máquina Windows pra compilar
+    runs-on: windows-latest
 
     steps:
       - name: Baixar o código
@@ -21,15 +21,17 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Instalar dependências do projeto
+        working-directory: ./app/desktop
         run: npm install
 
       - name: Build
+        working-directory: ./app/desktop
         env:
-          NUXT_PUBLIC_API_URL: https://sua-api.com # ← coloque sua URL aqui
+          NUXT_PUBLIC_API_URL: https://sua-api.com
         run: npx tauri build
 
       - name: Disponibilizar o instalador para download
         uses: actions/upload-artifact@v4
         with:
           name: windows-installer
-          path: src-tauri/target/release/bundle/
+          path: app/desktop/src-tauri/target/release/bundle/
