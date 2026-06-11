@@ -33,5 +33,5 @@ jobs:
       - name: Disponibilizar o instalador para download
         uses: actions/upload-artifact@v4
         with:
-          name: windows-installer
-          path: app/desktop/src-tauri/target/release/bundle/
+          name: windows-exe
+            path: app/desktop/src-tauri/target/release/desktop.exe  # ← executável direto
