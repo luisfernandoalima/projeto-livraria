@@ -45,6 +45,8 @@ div {
 }
 
 select {
+  color: #5b0606;
+  background-color: #fff;
   border: 2px solid #fff;
   border-radius: 10px;
   padding: 4px;

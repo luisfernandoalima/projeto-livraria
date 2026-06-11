@@ -29,7 +29,7 @@ const emit = defineEmits(["remover"]);
 
     <input type="number" v-model="item.quantidade" min="1" />
 
-    <p>
+    <p class="flex items-center justify-center">
       R$
       {{ item.produto._preco * item.quantidade }}
     </p>

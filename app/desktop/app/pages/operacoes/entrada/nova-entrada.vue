@@ -15,6 +15,8 @@ const api = useApi();
 const toast = useToast();
 const token = getToken();
 
+const router = useRouter();
+
 const carrinho = ref([]);
 const idBuscado = ref();
 
@@ -79,7 +81,8 @@ const finalizarEntrada = async () => {
 
     console.log(response);
 
-    toast.success("Venda criada!");
+    toast.success("Entrada registrada!");
+    router.push("/operacoes/entrada");
   } catch (err) {
     toast.error(err);
   }

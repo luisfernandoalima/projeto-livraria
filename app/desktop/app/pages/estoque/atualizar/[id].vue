@@ -306,47 +306,6 @@ const updateProduct = async () => {
   gap: 24px;
 }
 
-.upload_area {
-  border: 2px dashed #c7d2fe;
-
-  border-radius: 20px;
-
-  padding: 40px;
-
-  cursor: pointer;
-
-  transition: 0.2s;
-
-  display: block;
-}
-
-.upload_area:hover {
-  background: #f8faff;
-}
-
-.upload_area input {
-  display: none;
-}
-
-.upload_content {
-  text-align: center;
-}
-
-.upload_content span {
-  font-size: 42px;
-}
-
-.upload_content p {
-  margin-top: 14px;
-
-  color: #fff;
-  font-weight: 600;
-}
-
-.upload_content small {
-  color: #9ca3af;
-}
-
 .actions {
   margin-top: 50px;
 
@@ -374,17 +333,18 @@ const updateProduct = async () => {
 }
 
 .primary {
-  background: #4f46e5;
-  color: white;
+  background: #fff;
+  color: #5b0606;
 }
 
 .primary:hover {
-  background: #4338ca;
+  background: #a40000;
+  color: #fff;
 }
 
 .secondary {
   background: #eef2ff;
-  color: #4f46e5;
+  color: #5b0606;
 }
 
 .secondary:hover {
