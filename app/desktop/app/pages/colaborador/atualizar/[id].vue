@@ -6,7 +6,7 @@ import BackButton from "~/components/layout/BackButton.vue";
 import { cargos } from "#imports";
 
 definePageMeta({
-  layout: "default",
+  layout: "admin",
   middleware: "admin",
 });
 

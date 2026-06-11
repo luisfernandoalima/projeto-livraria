@@ -58,7 +58,9 @@ const login = async () => {
 </script>
 
 <template>
-  <div class="h-dvh w-full grid grid-cols-2 items-center justify-items-center">
+  <div
+    class="h-dvh w-full grid grid-cols-2 items-center justify-items-center bg-[#E3DDE1]"
+  >
     <div
       class="flex flex-col items-center justify-center w-full h-full text-white bg-[#5B0606]"
     >
