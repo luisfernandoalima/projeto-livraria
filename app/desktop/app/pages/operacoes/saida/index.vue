@@ -86,7 +86,9 @@ watch(
         <tbody>
           <tr v-for="value in saidas">
             <td class="border border-gray-300">{{ value.cupom_fiscal }}</td>
-            <td class="border border-gray-300">{{ value.data_saida }}</td>
+            <td class="border border-gray-300">
+              {{ formatDate(value.data_saida) }}
+            </td>
             <td class="border border-gray-300">{{ value.preco_total }}</td>
             <td class="border border-gray-300">{{ value.cpf_cliente }}</td>
             <td class="border border-gray-300">

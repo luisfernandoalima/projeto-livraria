@@ -11,19 +11,19 @@ const emit = defineEmits(["remover"]);
     <div
       class="image_container"
       :style="{
-        backgroundImage: `url(http://localhost:8081${item.produto.imagem_capa})`,
+        backgroundImage: `url(http://localhost:8081${item.produto._imgCapa})`,
       }"
     ></div>
 
     <div class="info_container">
       <p>
-        {{ item.produto.id }}
+        {{ item.produto._id }}
         -
-        {{ item.produto.isbn13 }}
+        {{ item.produto._isbn13 }}
       </p>
 
       <p class="text-3xl">
-        {{ item.produto.titulo }}
+        {{ item.produto._titulo }}
       </p>
     </div>
 
@@ -31,7 +31,7 @@ const emit = defineEmits(["remover"]);
 
     <p>
       R$
-      {{ item.produto.preco * item.quantidade }}
+      {{ item.produto._preco * item.quantidade }}
     </p>
 
     <button @click="emit('remover', item.produto.id)">Remover</button>
@@ -72,11 +72,6 @@ const emit = defineEmits(["remover"]);
     &:focus {
       outline: none;
     }
-  }
-
-  p {
-    align-self: center;
-    justify-self: center;
   }
 }
 </style>

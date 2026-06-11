@@ -6,7 +6,7 @@ import BackButton from "~/components/layout/BackButton.vue";
 import { cargos } from "#imports";
 
 definePageMeta({
-  layout: "admin",
+  layout: "default",
   middleware: "admin",
 });
 
@@ -212,12 +212,12 @@ const updateUser = async () => {
 .title_area h1 {
   margin: 0;
   font-size: 28px;
-  color: #111827;
+  color: #fff;
 }
 
 .title_area p {
   margin-top: 6px;
-  color: #6b7280;
+  color: #bbbbbb;
 }
 
 .section {
@@ -226,7 +226,7 @@ const updateUser = async () => {
 
 .section h2 {
   font-size: 18px;
-  color: #111827;
+  color: #fff;
 
   margin-bottom: 20px;
 }

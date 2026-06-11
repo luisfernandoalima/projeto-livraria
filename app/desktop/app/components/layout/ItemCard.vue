@@ -7,7 +7,7 @@ defineProps({
 </script>
 
 <template>
-  <div>
+  <div class="card_body">
     <NuxtLink :to="link" class="link_container">
       <div
         class="image_content"
@@ -19,11 +19,14 @@ defineProps({
 </template>
 
 <style scoped>
+.card_body {
+  width: 150px;
+}
+
 .image_content {
   height: 100%;
   border-radius: 10px;
   height: 180px;
-  width: 150px;
 
   background-position: center center;
   background-size: contain;
@@ -31,5 +34,9 @@ defineProps({
 
 p {
   color: #fff;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

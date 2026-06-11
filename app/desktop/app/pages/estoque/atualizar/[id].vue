@@ -1,6 +1,7 @@
 <script setup>
 import CommonInput from "~/components/ui/forms/CommonInput.vue";
 import CommonSelect from "~/components/ui/forms/CommonSelect.vue";
+import BackButton from "~/components/layout/BackButton.vue";
 
 import { listClassificacoesIndicativas } from "~/utils/lists";
 import { listGeneros } from "~/utils/lists";
@@ -79,9 +80,9 @@ const updateProduct = async () => {
     <div class="page">
       <div class="product_card">
         <div class="header">
-          <button class="back_button">← Voltar</button>
+          <BackButton />
 
-          <div class="product_preview">
+          <div class="product_preview mt-4">
             <div class="cover_preview">
               <img v-if="previewImage" :src="previewImage" />
 
@@ -212,38 +213,17 @@ const updateProduct = async () => {
 </template>
 
 <style scoped>
-.page {
-  min-height: 100vh;
-
-  padding: 40px 20px;
-}
-
 .product_card {
   max-width: 1200px;
   margin: 0 auto;
 
   border-radius: 28px;
 
-  padding: 36px;
-
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
 }
 
 .header {
   margin-bottom: 40px;
-}
-
-.back_button {
-  border: none;
-  background: transparent;
-
-  cursor: pointer;
-
-  color: #6b7280;
-
-  margin-bottom: 24px;
-
-  font-size: 14px;
 }
 
 .product_preview {
@@ -287,21 +267,21 @@ const updateProduct = async () => {
   margin: 0;
 
   font-size: 34px;
-  color: #111827;
+  color: #fff;
 }
 
 .product_info p {
   margin-top: 8px;
 
   font-size: 18px;
-  color: #6b7280;
+  color: #bbbbbb;
 }
 
 .product_info span {
   display: block;
   margin-top: 12px;
 
-  color: #9ca3af;
+  color: #bbbbbb;
 }
 
 .section {
@@ -311,7 +291,7 @@ const updateProduct = async () => {
 .section h2 {
   margin-bottom: 24px;
 
-  color: #111827;
+  color: #fff;
   font-size: 20px;
 }
 
@@ -356,7 +336,7 @@ const updateProduct = async () => {
 .upload_content p {
   margin-top: 14px;
 
-  color: #374151;
+  color: #fff;
   font-weight: 600;
 }
 

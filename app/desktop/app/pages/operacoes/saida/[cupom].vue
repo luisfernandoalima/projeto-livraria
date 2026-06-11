@@ -1,10 +1,10 @@
 <script setup>
+import OperationCard from "~/components/ui/cards/OperationCard.vue";
+import BackButton from "~/components/layout/BackButton.vue";
 definePageMeta({
   layout: "default",
   middleware: "auth",
 });
-
-import OperationCard from "~/components/ui/cards/OperationCard.vue";
 
 const router = useRoute();
 const api = useApi();
@@ -47,6 +47,7 @@ const quantidadeTotal = computed(() =>
       <!-- Cabeçalho -->
       <div class="header">
         <div class="text-white">
+          <BackButton />
           <h1>Detalhes da saída</h1>
           <p class="subtitle">Informações da movimentação de estoque</p>
         </div>
@@ -123,12 +124,12 @@ const quantidadeTotal = computed(() =>
 .header h1 {
   margin: 0;
   font-size: 30px;
-  color: #111827;
+  color: #fff;
 }
 
 .subtitle {
   margin-top: 6px;
-  color: #6b7280;
+  color: #bbbbbb;
 }
 
 .badge {
@@ -176,7 +177,7 @@ const quantidadeTotal = computed(() =>
 .section-title h2 {
   margin: 0;
   font-size: 24px;
-  color: #111827;
+  color: #fff;
 }
 
 .products-grid {
