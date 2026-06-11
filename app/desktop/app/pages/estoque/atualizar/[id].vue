@@ -5,23 +5,26 @@ import BackButton from "~/components/layout/BackButton.vue";
 
 import { listClassificacoesIndicativas } from "~/utils/lists";
 import { listGeneros } from "~/utils/lists";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   layout: "default",
   middleware: "admin",
 });
 
+const { getToken } = useAuthToken();
+
 const router = useRoute();
 const api = useApi();
 const toast = useToast();
 
 const id = router.params.id;
-const token = useCookie("auth_token");
+const token = getToken();
 
 const response = await api(`/product/find-product/${id}`, {
   method: "GET",
   headers: {
-    authorization: `Bearer ${token.value}`,
+    authorization: `Bearer ${token}`,
   },
 });
 
@@ -62,7 +65,7 @@ const updateProduct = async () => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updatedData),
     });

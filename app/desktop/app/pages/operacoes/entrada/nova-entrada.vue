@@ -2,15 +2,18 @@
 import CommonInput from "~/components/ui/forms/CommonInput.vue";
 import ItemEntryOperationCard from "~/components/layout/ItemEntryOperationCard.vue";
 import { Icon } from "@iconify/vue";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   middleware: "auth",
   layout: "default",
 });
 
+const { getToken } = useAuthToken();
+
 const api = useApi();
 const toast = useToast();
-const token = useCookie("auth_token");
+const token = getToken();
 
 const carrinho = ref([]);
 const idBuscado = ref();
@@ -28,7 +31,7 @@ const buscarProduto = async (id) => {
     const response = await api(`/product/find-product/${id}`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
 
@@ -69,7 +72,7 @@ const finalizarEntrada = async () => {
     const response = await api("/entry/register", {
       method: "POST",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
       body: payload,
     });

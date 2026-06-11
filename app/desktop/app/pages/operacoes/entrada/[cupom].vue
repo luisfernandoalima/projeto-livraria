@@ -1,22 +1,25 @@
 <script setup>
 import OperationCard from "~/components/ui/cards/OperationCard.vue";
 import BackButton from "~/components/layout/BackButton.vue";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   layout: "default",
   middleware: "auth",
 });
 
+const { getToken } = useAuthToken();
+
 const router = useRoute();
 const api = useApi();
 const cupom = router.params.cupom;
 
-const token = useCookie("auth_token");
+const token = getToken();
 
 const response = await api(`/entry/find-registration/${cupom}`, {
   method: "GET",
   headers: {
-    authorization: `Bearer ${token.value}`,
+    authorization: `Bearer ${token}`,
   },
 });
 

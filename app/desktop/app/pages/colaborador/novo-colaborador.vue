@@ -11,10 +11,12 @@ definePageMeta({
   layout: "default",
 });
 
+const { getToken } = useAuthToken();
+
 const api = useApi();
 const toast = useToast();
 
-const token = useCookie("auth_token");
+const token = getToken();
 
 const cpf = ref("");
 const name = ref("");
@@ -51,7 +53,7 @@ const createUser = async () => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     });

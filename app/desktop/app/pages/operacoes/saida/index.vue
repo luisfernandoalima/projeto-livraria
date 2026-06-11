@@ -1,17 +1,20 @@
 <script setup>
 import SearchBar from "~/components/layout/SearchBar.vue";
 import { Icon } from "@iconify/vue";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   layout: "default",
   middleware: "auth",
 });
 
+const { getToken } = useAuthToken();
+
 const route = useRoute();
 const router = useRouter();
 
 const api = useApi();
-const token = useCookie("auth_token");
+const token = getToken();
 
 const cupom = ref(route.query.cupom ?? "");
 
@@ -30,14 +33,14 @@ const carregaSaidas = async () => {
     response = await api("/outgoing/list-registration", {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
   } else {
     response = await api(`/outgoing/list-registration-cupom/${cupomSaida}`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
   }

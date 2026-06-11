@@ -10,18 +10,20 @@ definePageMeta({
   middleware: "admin",
 });
 
+const { getToken } = useAuthToken();
+
 const router = useRoute();
 const api = useApi();
 const toast = useToast();
 
-const token = useCookie("auth_token");
+const token = getToken();
 
 const id = router.params.id;
 
 const user = await api(`/user/find-user/${id}`, {
   method: "GET",
   headers: {
-    authorization: `Bearer ${token.value}`,
+    authorization: `Bearer ${token}`,
   },
 });
 
@@ -48,7 +50,7 @@ const updateUser = async () => {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(data),
     });

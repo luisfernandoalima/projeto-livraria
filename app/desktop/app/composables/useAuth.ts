@@ -1,15 +1,17 @@
+import { useAuthToken } from "./useAuthToken";
 import { jwtDecode } from "jwt-decode";
 
 import type { TokenPayload } from "~/types/User";
 
 export const useAuth = () => {
-  const token = useCookie("auth_token");
+  const { getToken } = useAuthToken();
+  const token = getToken();
 
   const user = computed(() => {
-    if (!token.value) return null;
+    if (!token) return null;
 
     try {
-      return jwtDecode<TokenPayload>(token.value);
+      return jwtDecode<TokenPayload>(token);
     } catch {
       return null;
     }

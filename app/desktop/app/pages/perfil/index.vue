@@ -1,14 +1,17 @@
 <script setup>
+import { useAuthToken } from "~/composables/useAuthToken";
+
 definePageMeta({
   layout: "default",
   middleware: "auth",
 });
 
-const token = useCookie("auth_token");
+const { getToken, clearToken } = useAuthToken();
+
+const token = getToken();
 
 const logOff = () => {
-  token.value = null;
-
+  clearToken();
   reloadNuxtApp();
 };
 
@@ -18,7 +21,7 @@ const api = useApi();
 const userBD = await api(`/user/find-user/${user.value?.id}`, {
   method: "GET",
   headers: {
-    authorization: `Bearer ${token.value}`,
+    authorization: `Bearer ${token}`,
   },
 });
 

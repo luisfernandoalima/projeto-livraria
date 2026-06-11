@@ -8,17 +8,19 @@ import { listGeneros } from "~/utils/lists";
 import BackButton from "~/components/layout/BackButton.vue";
 
 import { useApi } from "~/composables/useApi";
-import { useToast } from "#imports";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   middleware: "admin",
   layout: "default",
 });
 
+const { getToken } = useAuthToken();
+
 const api = useApi();
 const toast = useToast();
 
-const token = useCookie("auth_token");
+const token = getToken();
 
 const titulo = ref("");
 const autor = ref("");
@@ -59,7 +61,7 @@ const createProduct = async () => {
   const response = await api("/product/create", {
     method: "POST",
     headers: {
-      authorization: `Bearer ${token.value}`,
+      authorization: `Bearer ${token}`,
     },
     body: formData,
   });

@@ -2,17 +2,20 @@
 import SearchBar from "~/components/layout/SearchBar.vue";
 
 import BackButton from "~/components/layout/BackButton.vue";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   middleware: "auth",
   layout: "default",
 });
 
+const { getToken } = useAuthToken();
+
 const route = useRoute();
 const router = useRouter();
 
 const api = useApi();
-const token = useCookie("auth_token");
+const token = getToken();
 
 const produtoBusca = ref("");
 const buscarProduto = () => {
@@ -24,7 +27,7 @@ const id = route.params.id;
 const data = await api(`/product/find-product/${id}`, {
   method: "GET",
   headers: {
-    authorization: `Bearer ${token.value}`,
+    authorization: `Bearer ${token}`,
   },
 });
 

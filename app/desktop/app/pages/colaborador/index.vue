@@ -7,11 +7,13 @@ definePageMeta({
   layout: "default",
 });
 
+const { getToken } = useAuthToken();
+
 const route = useRoute();
 const router = useRouter();
 
 const api = useApi();
-const token = useCookie("auth_token");
+const token = getToken();
 
 const colaborador = ref(route.query.nome ?? "");
 
@@ -30,14 +32,14 @@ const carregarColaboradores = async () => {
     response = await api("/user/list-users", {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
   } else {
     response = await api(`/user/list-by-name/${nomeColaborador}`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
   }

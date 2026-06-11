@@ -1,17 +1,20 @@
 <script setup>
 import SearchBar from "~/components/layout/SearchBar.vue";
 import ItemCard from "~/components/layout/ItemCard.vue";
+import { useAuthToken } from "~/composables/useAuthToken";
 
 definePageMeta({
   middleware: "auth",
   layout: "default",
 });
 
+const { getToken } = useAuthToken();
+
 const route = useRoute();
 const router = useRouter();
 
 const api = useApi();
-const token = useCookie("auth_token");
+const token = getToken();
 
 const produto = ref(route.query.produto ?? "");
 
@@ -30,14 +33,14 @@ const carregarProdutos = async () => {
     response = await api("/product/list-products", {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
   } else {
     response = await api(`/product/list-by-name/${tituloProduto}`, {
       method: "GET",
       headers: {
-        authorization: `Bearer ${token.value}`,
+        authorization: `Bearer ${token}`,
       },
     });
   }

@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import LoginInput from "~/components/ui/forms/LoginInput.vue";
 import LoginButton from "~/components/ui/forms/LoginButton.vue";
 
@@ -8,6 +8,9 @@ import { useApi } from "~/composables/useApi";
 import { useToast } from "#imports";
 
 import { validateLogin } from "~/utils/formValidation";
+import { useAuthToken } from "~/composables/useAuthToken";
+
+const { setToken } = useAuthToken();
 
 const api = useApi();
 
@@ -16,9 +19,7 @@ const password = ref("");
 const router = useRouter();
 const toast = useToast();
 
-type TLoginResponse = {
-  token: string;
-};
+// const token = useCookie("auth_token");
 
 const login = async () => {
   const data = {
@@ -36,7 +37,7 @@ const login = async () => {
   }
 
   try {
-    const response = await api<TLoginResponse>("/user/login", {
+    const response = await api("/user/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,12 +48,12 @@ const login = async () => {
       },
     });
 
-    const token = useCookie("auth_token");
-    token.value = response.token;
+    setToken(response.token);
 
     router.push("/");
   } catch (err) {
     console.error(err);
+    toast.error(err);
   }
 };
 </script>

@@ -3,17 +3,19 @@ definePageMeta({
   middleware: "admin",
 });
 
+const { getToken } = useAuthToken();
+
 const router = useRoute();
 const api = useApi();
 
-const token = useCookie("auth_token");
+const token = getToken();
 
 const id = router.params.id;
 
 const response = await api(`/user/delete/${id}`, {
   method: "DELETE",
   headers: {
-    authorization: `Bearer ${token.value}`,
+    authorization: `Bearer ${token}`,
   },
 });
 
