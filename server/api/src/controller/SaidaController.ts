@@ -37,6 +37,10 @@ export default class SaidaController {
           return res.status(404).json({
             message: "Produto não encontrado",
           });
+        } else if (produtoBanco.estoque < item.quantidade) {
+          return res.status(400).json({
+            message: "Um produto está com o estoque muito baixo!",
+          });
         }
 
         const produto = new Produto(produtoBanco);
