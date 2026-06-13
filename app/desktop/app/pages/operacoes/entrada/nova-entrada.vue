@@ -146,7 +146,7 @@ const finalizarEntrada = async () => {
     </div>
     <button
       @click="finalizarEntrada()"
-      class="bg-white text-black mt-5 p-1.5 rounded-xl"
+      class="bg-white text-black mt-5 p-1.5 rounded-xl cursor-pointer"
     >
       Salvar
     </button>

@@ -81,7 +81,7 @@ const finalizarVenda = async () => {
     toast.success("Saída registrada!");
     router.push("/operacoes/saida");
   } catch (err) {
-    toast.error(err);
+    toast.error({ title: "Erro!", message: err.data?.message || err.message });
   }
 };
 </script>
@@ -150,7 +150,7 @@ const finalizarVenda = async () => {
     </div>
     <button
       @click="finalizarVenda()"
-      class="bg-white text-black mt-5 p-1.5 rounded-xl"
+      class="bg-white text-black mt-5 p-1.5 rounded-xl cursor-pointer"
     >
       Salvar
     </button>
