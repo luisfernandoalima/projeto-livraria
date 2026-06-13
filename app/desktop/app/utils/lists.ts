@@ -144,3 +144,22 @@ export const cargos = [
     text: "Colaborador",
   },
 ];
+
+export const metodosPagamento = [
+  {
+    id: "Pix",
+    text: "Pix",
+  },
+  {
+    id: "Credito",
+    text: "Cartão de Crédito",
+  },
+  {
+    id: "Debito",
+    text: "Cartão de Débito",
+  },
+  {
+    id: "Dinheiro",
+    text: "Dinheiro",
+  },
+];

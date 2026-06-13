@@ -3,6 +3,9 @@ import CommonInput from "~/components/ui/forms/CommonInput.vue";
 import ItemOperationCard from "~/components/layout/ItemOperationCard.vue";
 import { Icon } from "@iconify/vue";
 import { useAuthToken } from "~/composables/useAuthToken";
+import CommonSelect from "~/components/ui/forms/CommonSelect.vue";
+
+import { metodosPagamento } from "#imports";
 
 definePageMeta({
   middleware: "auth",
@@ -112,11 +115,11 @@ const finalizarVenda = async () => {
         v-model="venda.cpfCliente"
       />
 
-      <CommonInput
+      <CommonSelect
         text="Forma de pagamento"
         name="tipoPagamento"
-        type="text"
         v-model="venda.tipoPagamento"
+        :options="metodosPagamento"
       />
     </div>
 

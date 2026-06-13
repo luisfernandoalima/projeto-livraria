@@ -26,8 +26,11 @@ const saida = computed(() => ({
   id_saida: response[0]?.id_saida,
   nome: response[0]?.nome,
   email: response[0]?.email,
+  cliente: response[0]?.cliente,
+  cpf_cliente: response[0]?.cpf_cliente,
   data_saida: response[0]?.data_saida,
   valor_total: response[0]?.preco_total,
+  tipo_pagamento: response[0]?.tipo_pagamento,
 }));
 
 const produtos = computed(() =>
@@ -91,8 +94,20 @@ const quantidadeTotal = computed(() =>
             <strong>{{ quantidadeTotal }} itens</strong>
           </div>
           <div class="info-item">
+            <span class="label">CPF do cliente</span>
+            <strong>{{ saida.cpf_cliente }}</strong>
+          </div>
+          <div class="info-item">
+            <span class="label">Cliente</span>
+            <strong>{{ saida.cliente }}</strong>
+          </div>
+          <div class="info-item">
             <span class="label">Valor total</span>
             <strong>R$ {{ saida.valor_total }}</strong>
+          </div>
+          <div class="info-item">
+            <span class="label">Método de Pagamento</span>
+            <strong>{{ saida.tipo_pagamento }}</strong>
           </div>
         </div>
       </section>
