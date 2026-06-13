@@ -30,7 +30,7 @@ export default class EntradaDAO {
   Consultar = async (cupomFiscal: number) => {
     try {
       const result = await pool.query(
-        "SELECT u.id, u.nome, u.email, e.id AS id_entrada, e.data_entrada, e.valor_total, p.id AS id_produto, p.titulo, pe.quantidade_item, pe.valor_itens FROM entrada e INNER JOIN usuario u ON e.id_usuario = u.id INNER JOIN produto_entrada pe ON e.id = pe.id_entrada INNER JOIN produto p ON pe.id_produto = p.id WHERE e.cupom_fiscal = $1;",
+        "SELECT u.id, u.nome, u.email, e.id AS id_entrada, e.nome_fornecedor, e.cnpj_fornecedor , e.data_entrada, e.valor_total, p.id AS id_produto, p.titulo, pe.quantidade_item, pe.valor_itens FROM entrada e INNER JOIN usuario u ON e.id_usuario = u.id INNER JOIN produto_entrada pe ON e.id = pe.id_entrada INNER JOIN produto p ON pe.id_produto = p.id WHERE e.cupom_fiscal = $1;",
         [cupomFiscal],
       );
 
