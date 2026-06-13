@@ -79,6 +79,8 @@ const createUser = async () => {
           type="text"
           placeholder="123.456.789/10"
           v-model="cpf"
+          mask="###.###.###-##"
+          :maxlength="14"
         />
         <CommonInput
           text="Nome"
@@ -100,6 +102,8 @@ const createUser = async () => {
           type="text"
           placeholder="(00) 00000-0000"
           v-model="telefone"
+          mask="(##) #####-####"
+          :maxlength="15"
         />
         <CommonInput
           text="Senha"

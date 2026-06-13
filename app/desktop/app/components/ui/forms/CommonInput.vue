@@ -7,6 +7,9 @@ defineProps({
   type: String,
   placeholder: String,
   modelValue: String,
+
+  mask: String,
+  maxlength: Number,
 });
 
 const emit = defineEmits(["update:modelValue"]);
@@ -16,11 +19,13 @@ const emit = defineEmits(["update:modelValue"]);
   <div>
     <label :for="name">{{ text }}</label>
     <input
+      v-maska="mask"
       :type="type"
       :placeholder="placeholder"
       :name="name"
       :id="name"
       :value="modelValue"
+      :maxlength="maxlength"
       @input="emit('update:modelValue', $event.target.value)"
       autocomplete="off"
     />

@@ -113,6 +113,8 @@ const finalizarVenda = async () => {
         name="cpfCliente"
         type="text"
         v-model="venda.cpfCliente"
+        mask="###.###.###-##"
+        :maxlength="14"
       />
 
       <CommonSelect

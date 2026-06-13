@@ -113,6 +113,8 @@ const finalizarEntrada = async () => {
         name="cnpjFornecedor"
         type="text"
         v-model="entrada.cnpjFornecedor"
+        mask="##.###.###/####-##"
+        :maxlength="18"
       />
     </div>
 
