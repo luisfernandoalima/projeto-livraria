@@ -1,6 +1,6 @@
 {
   "name": "desktop",
-  "version": "1.0.1",
+  "version": "1.1.1",
   "description": "API desenvolvida para conectar o banco de dados com a interface do projeto Tsuru",
   "license": "ISC",
   "author": "Luis Fernando Alves de Lima",

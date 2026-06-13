@@ -27,6 +27,8 @@ const entrada = computed(() => ({
   id_entrada: response[0]?.id_entrada,
   nome: response[0]?.nome,
   email: response[0]?.email,
+  fornecedor: response[0]?.nome_fornecedor,
+  cnpj: response[0]?.cnpj_fornecedor,
   data_entrada: response[0]?.data_entrada,
   valor_total: response[0]?.valor_total,
 }));
@@ -88,6 +90,14 @@ const quantidadeTotal = computed(() =>
           <div class="info-item">
             <span class="label">Quantidade total</span>
             <strong>{{ quantidadeTotal }} itens</strong>
+          </div>
+          <div class="info-item">
+            <span class="label">CNPJ</span>
+            <strong>{{ entrada.cnpj }}</strong>
+          </div>
+          <div class="info-item">
+            <span class="label">Fornecedor</span>
+            <strong>{{ entrada.fornecedor }}</strong>
           </div>
           <div class="info-item">
             <span class="label">Valor total</span>
